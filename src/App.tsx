@@ -76,6 +76,9 @@ function App() {
         setTasks({...tasks, [todolistId]: tasks[todolistId].map(tl => tl.id === id ? {...tl, title: newTitle} : tl)})
     }
 
+
+
+
     const ChangeTaskFilter = (value: FilterValuesType, todolistId: string) => {
         // let todolist = todolists.find(tl => tl.id === todolistId)
         // if (todolist) {
@@ -107,6 +110,7 @@ function App() {
             [todolistId]: []
         })
     }
+
     return (
         <div className="App">
             <AppBar position="static">
