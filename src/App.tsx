@@ -24,7 +24,6 @@ export type TasksStateType = {
 }
 
 function App() {
-
     let todolistId1 = v1()
     let todolistId2 = v1()
 
@@ -51,8 +50,7 @@ function App() {
                 {id: v1(), title: 'Meat', isDone: true},
             ],
 
-        }
-    )
+        })
 
     const removeTask = (id: string, todolistId: string) => {
         // setTasks(tasks.filter(t => t.id !== id))
@@ -69,6 +67,15 @@ function App() {
         setTasks({...tasks, [todolistId]: [{id: v1(), title: title, isDone: false}, ...tasks[todolistId]]})
     }
 
+    const changeTaskStatus = (id: string, isDone: boolean, todolistId: string) => {
+        // setTasks(tasks.map(t => t.id === id ? {...t, isDone: isDone} : t))
+        setTasks({...tasks, [todolistId]: tasks[todolistId].map(tl => tl.id === id ? {...tl, isDone: isDone} : tl)})
+    }
+
+    const changeTaskTitle = (id: string, newTitle: string, todolistId: string) => {
+        setTasks({...tasks, [todolistId]: tasks[todolistId].map(tl => tl.id === id ? {...tl, title: newTitle} : tl)})
+    }
+
     const ChangeTaskFilter = (value: FilterValuesType, todolistId: string) => {
         // let todolist = todolists.find(tl => tl.id === todolistId)
         // if (todolist) {
@@ -78,14 +85,6 @@ function App() {
         setTodolists(todolists.map(tl => tl.id === todolistId ? {...tl, filter: value} : tl))
     }
 
-    const changeTaskStatus = (id: string, isDone: boolean, todolistId: string) => {
-        // setTasks(tasks.map(t => t.id === id ? {...t, isDone: isDone} : t))
-        setTasks({...tasks, [todolistId]: tasks[todolistId].map(tl => tl.id === id ? {...tl, isDone: isDone} : tl)})
-    }
-
-    const changeTaskTitle = (id: string, newTitle: string, todolistId: string) => {
-        setTasks({...tasks, [todolistId]: tasks[todolistId].map(tl => tl.id === id ? {...tl, title: newTitle} : tl)})
-    }
     const changeTodolistTitle = (id: string, newTitle: string) => {
         let todolist = todolists.find(tl => tl.id === id)
         if (todolist) {
@@ -93,6 +92,7 @@ function App() {
             setTodolists([...todolists])
         }
     }
+
     const removeTodolist = (todolistId: string) => {
         setTodolists(todolists.filter(tl => tl.id !== todolistId))
         delete tasks[todolistId]
