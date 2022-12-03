@@ -9,6 +9,8 @@ type ActionType = {
     [key: string]: any
 }
 
+
+
 export const userReducer = (state: StateType, action: ActionType) => {
     switch (action.type) {
         case 'INCREMENT-AGE':
@@ -26,6 +28,6 @@ export const userReducer = (state: StateType, action: ActionType) => {
                 name: action.newName
             }
         default:
-            throw new Error('i don\'t understand this action type')
+            return state
     }
 }
