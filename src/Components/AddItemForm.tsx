@@ -1,12 +1,13 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import styles from '../Todolist.module.css';
+import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 import {IconButton, TextField} from '@material-ui/core';
 import AddBoxIcon from '@material-ui/icons/AddBox';
+
 export type AddItemForm = {
     addItem: (title: string) => void
 
 }
-export const AddItemForm = (props: AddItemForm) => {
+export const AddItemForm = memo((props: AddItemForm) => {
+    // console.log('AddItemForm is called')
     let [value, setValue] = useState('')
     let [error, setError] = useState<string | null>(null)
 
@@ -16,6 +17,10 @@ export const AddItemForm = (props: AddItemForm) => {
     }
 
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (error !== null) {
+            setError(null)
+        }
+
         if (event.key === 'Enter') {
             addTaskHandler()
         }
@@ -30,7 +35,6 @@ export const AddItemForm = (props: AddItemForm) => {
         }
     }
 
-    // @ts-ignore
     return <div>
         <TextField
             value={value}
@@ -44,4 +48,4 @@ export const AddItemForm = (props: AddItemForm) => {
         <IconButton onClick={addTaskHandler}><AddBoxIcon fontSize={'large'} color={'primary'}/></IconButton>
 
     </div>
-}
+})
