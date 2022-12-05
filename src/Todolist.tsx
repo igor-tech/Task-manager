@@ -40,11 +40,16 @@ export const Todolist = memo(({title, tasks, ...props}: TodolistType) => {
     let tasksForTodolist = tasks
 
     if (props.filter === 'active') {
-        tasksForTodolist = tasks.filter(t => t.isDone)
+        tasksForTodolist = tasksForTodolist.filter(t => !t.isDone)
     }
 
     if (props.filter === 'completed') {
-        tasksForTodolist = tasks.filter(t => !t.isDone)
+        tasksForTodolist = tasksForTodolist.filter(t => t.isDone)
+    }
+
+    const onChangeCompletedHandler = () => {
+        debugger
+        props.ChangeTaskFilter('completed', props.id)
     }
 
     return (
@@ -77,7 +82,7 @@ export const Todolist = memo(({title, tasks, ...props}: TodolistType) => {
                 <Button
                     color={'secondary'}
                     variant={props.filter === 'completed' ? 'contained' : 'text'}
-                    onClick={() => props.ChangeTaskFilter('completed', props.id)}
+                    onClick={onChangeCompletedHandler}
                 >Completed</Button>
             </div>
         </div>
