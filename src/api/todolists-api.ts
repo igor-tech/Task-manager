@@ -38,11 +38,11 @@ export type TaskType = {
 }
 type UpdateTaskModelType = {
     title: string
-    description?: string
-    status?: number
-    priority?: number
-    startDate?: string
-    deadline?: string
+    description: string
+    status: number
+    priority: number
+    startDate: string
+    deadline: string
 }
 
 type GetTasksResponseType = {
@@ -74,6 +74,6 @@ export const todolistsAPI = {
         return instance.put<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
     },
     createTask(todolistId: string, title: string) {
-        return instance.post(`todo-lists/${todolistId}/tasks/`, {title})
+        return instance.post<ResponseType<TaskType>>(`todo-lists/${todolistId}/tasks/`, {title})
     }
 }
