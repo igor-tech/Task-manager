@@ -1,15 +1,13 @@
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, setTasksAC, tasksReducer} from './tasks-reducer'
+import {addTaskAC, changeTaskTitleAC, removeTaskAC, setTasksAC, tasksReducer, updateTaskAC} from './tasks-reducer'
 
-import {addTodolistAC, removeTodolistAC, setTodolistsAC, TodolistDomainType} from './todolists-reducer';
-import {TasksStateType} from '../App';
+import {addTodolistAC, removeTodolistAC, setTodolistsAC} from './todolists-reducer';
 import {TaskPriorities, TaskStatuses, TaskType} from '../api/todolists-api';
-import {v1} from 'uuid';
-import {array} from 'prop-types';
 
 
 let todolistId1: string;
 let todolistId2: string;
 let startState: { [key: string]: Array<TaskType> }
+
 
 beforeEach(() => {
     todolistId1 = 'todolistId1'
@@ -174,7 +172,19 @@ test('correct task should be deleted from correct array', () => {
 
 test('correct task should be added to correct array', () => {
 
-    const action = addTaskAC('juice', 'todolistId2')
+    // const action = addTaskAC('juice', 'todolistId2')
+    const action = addTaskAC({
+        todoListId: todolistId2,
+        title: 'juice',
+        status: TaskStatuses.New,
+        addedDate: '',
+        deadline: '',
+        description: '' ,
+        order: 0,
+        priority: 0,
+        startDate: '',
+        id: 'fasd'
+    })
 
     const endState = tasksReducer(startState, action)
 
@@ -187,7 +197,7 @@ test('correct task should be added to correct array', () => {
 
 test('status of specified task should be changed', () => {
 
-    const action = changeTaskStatusAC('2', TaskStatuses.New, 'todolistId2')
+    const action = updateTaskAC('2', {status: TaskStatuses.New}, 'todolistId2')
 
     const endState = tasksReducer(startState, action)
 
@@ -208,7 +218,12 @@ test('title of specified task should be changed', () => {
 
 test('new array should be added when new todolist is added', () => {
 
-    const action = addTodolistAC('title no matter')
+    const action = addTodolistAC({
+        title: '',
+        addedDate: '',
+        order: 0,
+        id: 'd'
+    })
 
     const endState = tasksReducer(startState, action)
 
