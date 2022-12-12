@@ -1,21 +1,20 @@
 import React, {memo, useCallback, useEffect} from 'react';
 
-import {AddItemForm} from './Components/AddItemForm';
-import {EditableSpan} from './Components/EditableSpan';
+import {AddItemForm} from '../../../Components/AddItemForm/AddItemForm';
+import {EditableSpan} from '../../../Components/EditableSpan/EditableSpan';
 import {Delete} from '@material-ui/icons';
 import {Button, IconButton} from '@material-ui/core';
-import {Task} from './Components/Task';
-import {FilterValuesType} from './State/todolists-reducer';
-import {TaskStatuses} from './api/todolists-api';
-import {useDispatch} from 'react-redux';
-import {fetchTasksTC} from './State/tasks-reducer';
-import {useAppDispatch} from './State/store';
+import {Task} from './Task/Task';
+import {FilterValuesType} from '../todolists-reducer';
+import {TaskStatuses, TaskType} from '../../../api/todolists-api';
+import {fetchTasksTC} from '../tasks-reducer';
+import {useAppDispatch} from '../../../App/store';
 
 
 type TodolistType = {
     id: string
     title: string
-    tasks: Array<{ id: string, title: string, status: TaskStatuses }>
+    tasks: Array<TaskType>
     ChangeTaskFilter: (value: FilterValuesType, todolistId: string) => void
     addTask: (title: string, todolistId: string) => void
     filter: FilterValuesType

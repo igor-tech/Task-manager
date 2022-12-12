@@ -1,10 +1,10 @@
-import {TaskType} from '../AppWithRedux';
+
 import React, {ChangeEvent, memo, useCallback} from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
-import {EditableSpan} from './EditableSpan';
+import {EditableSpan} from '../../../../Components/EditableSpan/EditableSpan';
 import {IconButton} from '@material-ui/core';
 import {Delete} from '@material-ui/icons';
-import {TaskStatuses} from '../api/todolists-api';
+import {TaskStatuses, TaskType} from '../../../../api/todolists-api';
 
 type TaskPropsType = {
     changeTaskStatus: (id: string, status: TaskStatuses, todolistId: string) => void
