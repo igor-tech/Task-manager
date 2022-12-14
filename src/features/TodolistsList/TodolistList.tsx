@@ -15,14 +15,18 @@ import {TaskStatuses} from '../../api/todolists-api';
 import {Grid, Paper} from '@material-ui/core';
 import {AddItemForm} from '../../Components/AddItemForm/AddItemForm';
 import {Todolist} from './Todolist/Todolist';
-
-export const TodolistsList: React.FC = () => {
+type PropsType = {
+    demo?: boolean
+}
+export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(store => store.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(store => store.tasks)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-
+        if (demo) {
+            return
+        }
         dispatch(fetchTodolistsTC())
     }, [])
 
@@ -77,15 +81,13 @@ export const TodolistsList: React.FC = () => {
                     return (<Grid item key={tl.id}>
                             <Paper style={{padding: '10px'}}>
                                 <Todolist
-
-                                    id={tl.id}
-                                    title={tl.title}
+                                    todolist={tl}
+                                    demo={demo}
                                     tasks={taskForTodolist}
                                     removeTask={removeTask}
                                     ChangeTaskFilter={ChangeTaskFilter}
                                     addTask={addTask}
                                     changeTaskStatus={changeTaskStatus}
-                                    filter={tl.filter}
                                     removeTodolist={removeTodolist}
                                     changeTaskTitle={changeTaskTitle}
                                     changeTodolistTitle={changeTodolistTitle}
