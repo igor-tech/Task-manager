@@ -61,6 +61,9 @@ export const fetchTodolistsTC = () => (dispatch: ThunkDispatch) => {
             dispatch(setTodolistsAC(res.data))
             dispatch(setAppStatusAC('succeeded'))
         })
+        .catch((error) => {
+            handleServerNetworkError(error, dispatch)
+        })
 }
 export const removeTodolistTC = (todolistId: string) => (dispatch: ThunkDispatch) => {
     dispatch(setAppStatusAC('loading'))
@@ -90,11 +93,13 @@ export const addTodolistTC = (title: string) => (dispatch: ThunkDispatch) => {
             handleServerNetworkError(error, dispatch)
         })
 }
-export const changeTodolistTitleTC = (id: string, title: string) => (dispatch: Dispatch<ActionsType>) => {
+export const changeTodolistTitleTC = (id: string, title: string) => (dispatch: ThunkDispatch) => {
+    dispatch(setAppStatusAC('loading'))
     todolistsAPI.updateTodolists(id, title)
         .then((res) => {
             if (res.data.resultCode === 0) {
             dispatch(changeTodolistTitleAC(id, title))
+                dispatch(setAppStatusAC('succeeded'))
             } else {
                 handleServerAppError(res.data, dispatch)
             }
