@@ -26,7 +26,7 @@ export const Task = memo((props: TaskPropsType) => {
 
     const onChangeTitleHandler = useCallback((newValue: string) => {
         props.changeTaskTitle(props.task.id, newValue, props.todolistId)
-    }, [props.changeTaskTitle, props.task.id, props.todolistId])
+    }, [props.task.id, props.changeTaskTitle, props.todolistId])
 
 
     return <div key={props.task.id}>

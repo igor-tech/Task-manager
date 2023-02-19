@@ -1,18 +1,21 @@
 import React, {useCallback, useEffect} from 'react';
 import './App.css';
-import {AppBar, Button, Container, IconButton, LinearProgress, Toolbar, Typography} from '@material-ui/core';
+
 import {Menu} from '@material-ui/icons';
 import {TodolistsList} from '../features/TodolistsList/TodolistList';
 import {ErrorSnackbar} from '../Components/ErrorSnackbar/ErrorSnackbar';
 import {useAppDispatch, useAppSelector} from './store';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 import {Login} from '../features/Login/Login';
-import {CircularProgress} from '@mui/material';
 import {initializedAppTC, logoutTC} from './app-reducer';
+import Button from '@mui/material/Button';
+import {AppBar, Box, CircularProgress, Container, LinearProgress, Typography} from '@material-ui/core';
+import {IconButton, Toolbar} from '@mui/material';
 
 type PropsType = {
     demo?: boolean
 }
+
 
 function App({demo = false}: PropsType) {
     const dispatch = useAppDispatch()
@@ -29,38 +32,37 @@ function App({demo = false}: PropsType) {
     }, [])
 
     if (!isInitialized) {
-        return (<div  style={{position: 'fixed', top: '30%',textAlign: 'center', width: '100%'}}>
-            <CircularProgress />
+        return (<div style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+            <CircularProgress/>
         </div>)
     }
 
-
-
     return (
-        <BrowserRouter>
-            <div className="App">
-                <ErrorSnackbar/>
-                <AppBar position="static">
-                    <Toolbar>
-                        <IconButton edge="start" color="inherit" aria-label="menu">
-                            <Menu/>
-                        </IconButton>
-                        <Typography variant="h6">
-                            News
-                        </Typography>
+        <div className="App">
+            <ErrorSnackbar/>
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton edge="start" color="inherit" aria-label="menu">
+                        <Menu/>
+                    </IconButton>
+                    <Typography variant="h6" style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
+                        News
                         {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Log out</Button>}
-                    </Toolbar>
+                    </Typography>
+                </Toolbar>
+                <Box style={{position: 'absolute', width: '100%', top: '60px'}}>
                     {status === 'loading' && <LinearProgress/>}
-                </AppBar>
-                <Container fixed>
-                    <Routes>
-                        <Route path="/" element={<TodolistsList demo={demo}/>}/>
-                        <Route path="/login" element={<Login/>}/>
-                        <Route path='*' element={<h1>404: PAGE NOT FOUND</h1>} />
-                    </Routes>
-                </Container>
-            </div>
-        </BrowserRouter>
+                </Box>
+            </AppBar>
+            <Container fixed>
+                <Routes>
+                    <Route path="/" element={<Navigate to={'/profile'}/>}/>
+                    <Route path="/profile" element={<TodolistsList demo={demo}/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="*" element={<h1>404: PAGE NOT FOUND</h1>}/>
+                </Routes>
+            </Container>
+        </div>
     );
 }
 

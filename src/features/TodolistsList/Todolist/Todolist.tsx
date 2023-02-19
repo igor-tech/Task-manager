@@ -25,7 +25,6 @@ type TodolistType = {
 }
 
 export const Todolist = memo(({demo = false, tasks, ...props}: TodolistType) => {
-    console.log('todolist is called')
     if (typeof demo === 'undefined') demo = false
     const dispatch = useAppDispatch()
 
