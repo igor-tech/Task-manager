@@ -19,6 +19,7 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@types/react-router-dom": "^5.3.3",
+    "@types/storybook-react-router": "^1.0.2",
     "@types/uuid": "^8.3.4",
     "axios": "^1.2.1",
     "formik": "^2.2.9",
@@ -40,7 +41,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 9009",
+    "storybook-dev": "start-storybook -p 9009 -s public --no-dll",
+    "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "jest:integration": "jest -c integration/jest.config.js",
     "test:integration": "start-server-and-test storybook http-get://localhost:9009 jest:integration"
@@ -90,6 +92,8 @@
     "prop-types": "^15.8.1",
     "puppeteer": "^19.3.0",
     "start-server-and-test": "^1.14.0",
+    "storybook-addon-react-router-v6": "^0.2.1",
+    "storybook-react-router": "^1.0.8",
     "webpack": "^5.75.0"
   }
 }

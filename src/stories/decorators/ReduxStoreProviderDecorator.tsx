@@ -2,7 +2,7 @@ import {AppRootStateType} from '../../App/store';
 import {Provider} from 'react-redux';
 
 import React from 'react'
-import {applyMiddleware, combineReducers, createStore} from 'redux'
+import {combineReducers} from 'redux'
 import {v1} from 'uuid'
 import {tasksReducer} from '../../features/TodolistsList/tasks-reducer';
 import {todolistsReducer} from '../../features/TodolistsList/todolists-reducer';
@@ -10,6 +10,8 @@ import {TaskPriorities, TaskStatuses} from '../../api/todolists-api';
 import {appReducer} from '../../App/app-reducer';
 import thunkMiddleware from 'redux-thunk';
 import {authReducer} from '../../features/Login/auth-reducer';
+import {configureStore} from '@reduxjs/toolkit';
+import {HashRouter} from 'react-router-dom';
 
 
 const rootReducer = combineReducers({
@@ -26,27 +28,79 @@ const initialGlobalState: AppRootStateType = {
     ],
     tasks: {
         ['todolistId1']: [
-            {id: v1(), title: 'HTML&CSS', status: TaskStatuses.Completed , todoListId: 'todolistId1', description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low},
-            {id: v1(), title: 'JS', status: TaskStatuses.Completed , todoListId: 'todolistId1', description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low},
+            {
+                id: v1(),
+                title: 'HTML&CSS',
+                status: TaskStatuses.Completed,
+                todoListId: 'todolistId1',
+                description: '',
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low
+            },
+            {
+                id: v1(),
+                title: 'JS',
+                status: TaskStatuses.Completed,
+                todoListId: 'todolistId1',
+                description: '',
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low
+            },
         ],
         ['todolistId2']: [
-            {id: v1(), title: 'Milk', status: TaskStatuses.Completed , todoListId: 'todolistId2', description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low},
-            {id: v1(), title: 'React Book', status: TaskStatuses.Completed , todoListId: 'todolistId2', description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low},
+            {
+                id: v1(),
+                title: 'Milk',
+                status: TaskStatuses.Completed,
+                todoListId: 'todolistId2',
+                description: '',
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low
+            },
+            {
+                id: v1(),
+                title: 'React Book',
+                status: TaskStatuses.Completed,
+                todoListId: 'todolistId2',
+                description: '',
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low
+            },
         ]
     },
     app: {
-        status: 'idle',
+        status: 'succeeded',
         error: null,
-        initialized: false
+        initialized: true
     },
     auth: {
-        isLoggedIn: false
+        isLoggedIn: true
     }
 }
 
-export const storyBookStore = createStore(rootReducer, initialGlobalState as AppRootStateType, applyMiddleware(thunkMiddleware))
+export const storyBookStore = configureStore({
+    reducer: rootReducer,
+    preloadedState: initialGlobalState,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunkMiddleware)
+})
 
 export const ReduxStoreProviderDecorator = (storyFn: any) => (
-    <Provider store={storyBookStore}>{storyFn()}</Provider>)
-
+    <HashRouter>
+        <Provider store={storyBookStore}>
+            {storyFn()}
+        </Provider>
+    </HashRouter>
+)
 

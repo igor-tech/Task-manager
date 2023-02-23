@@ -5,7 +5,7 @@ import {Menu} from '@material-ui/icons';
 import {TodolistsList} from '../features/TodolistsList/TodolistList';
 import {ErrorSnackbar} from '../Components/ErrorSnackbar/ErrorSnackbar';
 import {useAppDispatch, useAppSelector} from './store';
-import {Navigate, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import {Login} from '../features/Login/Login';
 import {initializedAppTC, logoutTC} from './app-reducer';
 import Button from '@mui/material/Button';
@@ -24,7 +24,10 @@ function App({demo = false}: PropsType) {
     const isInitialized = useAppSelector<boolean>(state => state.app.initialized)
 
     useEffect(() => {
-        dispatch(initializedAppTC())
+        if (!demo) {
+            dispatch(initializedAppTC())
+        }
+
     }, [])
 
     const logoutHandler = useCallback(() => {
@@ -38,31 +41,33 @@ function App({demo = false}: PropsType) {
     }
 
     return (
-        <div className="App">
-            <ErrorSnackbar/>
-            <AppBar position="static">
-                <Toolbar>
-                    <IconButton edge="start" color="inherit" aria-label="menu">
-                        <Menu/>
-                    </IconButton>
-                    <Typography variant="h6" style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
-                        News
-                        {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Log out</Button>}
-                    </Typography>
-                </Toolbar>
-                <Box style={{position: 'absolute', width: '100%', top: '60px'}}>
-                    {status === 'loading' && <LinearProgress/>}
-                </Box>
-            </AppBar>
-            <Container fixed>
-                <Routes>
-                    <Route path="/" element={<Navigate to={'/profile'}/>}/>
-                    <Route path="/profile" element={<TodolistsList demo={demo}/>}/>
-                    <Route path="/login" element={<Login/>}/>
-                    <Route path="*" element={<h1>404: PAGE NOT FOUND</h1>}/>
-                </Routes>
-            </Container>
-        </div>
+
+            <div className="App">
+                <ErrorSnackbar/>
+                <AppBar position="static">
+                    <Toolbar>
+                        <IconButton edge="start" color="inherit" aria-label="menu">
+                            <Menu/>
+                        </IconButton>
+                        <Typography variant="h6"
+                                    style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
+                            News
+                            {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Log out</Button>}
+                        </Typography>
+                    </Toolbar>
+                    <Box style={{position: 'absolute', width: '100%', top: '60px'}}>
+                        {status === 'loading' && <LinearProgress/>}
+                    </Box>
+                </AppBar>
+                <Container fixed>
+                    <Routes>
+                        <Route path="/" element={<Navigate to={'/profile'}/>}/>
+                        <Route path="/profile" element={<TodolistsList demo={demo}/>}/>
+                        <Route path="/login" element={<Login/>}/>
+                        <Route path="*" element={<h1>404: PAGE NOT FOUND</h1>}/>
+                    </Routes>
+                </Container>
+            </div>
     );
 }
 

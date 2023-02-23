@@ -4,9 +4,8 @@ import {ReduxStoreProviderDecorator} from '../stories/decorators/ReduxStoreProvi
 export default {
     title: 'App Base Component',
     component: App,
-    decorators: [ReduxStoreProviderDecorator]
+    decorators: [ReduxStoreProviderDecorator],
 }
-
 
 export const AppBaseExample = () => {
     return <App demo={true}/>
