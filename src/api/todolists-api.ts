@@ -55,6 +55,9 @@ export const authAPI = {
     },
     logout() {
         return instance.delete<ResponseType<{id: number, email: string, login: string}>>('auth/login')
+    },
+    captcha() {
+        return axios.get('https://social-network.samuraijs.com/api/1.0/security/get-captcha-url')
     }
 }
 
@@ -65,9 +68,11 @@ export type TodolistType = {
     addedDate: string
     order: number
 }
+export type filedErrorsType = { field: string, error: string };
 export type ResponseType<D = {}> = {
     resultCode: number
     messages: string[]
+    fieldsErrors?: Array<filedErrorsType>
     data: D
 }
 export enum TaskStatuses {

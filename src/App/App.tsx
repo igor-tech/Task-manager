@@ -5,12 +5,13 @@ import {Menu} from '@material-ui/icons';
 import {TodolistsList} from '../features/TodolistsList/TodolistList';
 import {ErrorSnackbar} from '../Components/ErrorSnackbar/ErrorSnackbar';
 import {useAppDispatch, useAppSelector} from './store';
-import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 import {Login} from '../features/Login/Login';
-import {initializedAppTC, logoutTC} from './app-reducer';
+import {initializedAppTC} from './app-reducer';
 import Button from '@mui/material/Button';
 import {AppBar, Box, CircularProgress, Container, LinearProgress, Typography} from '@material-ui/core';
 import {IconButton, Toolbar} from '@mui/material';
+import {logoutTC} from '../features/Login/auth-reducer';
 
 type PropsType = {
     demo?: boolean
