@@ -9,7 +9,7 @@ import {todolistsReducer} from '../../features/TodolistsList/todolists-reducer';
 import {TaskPriorities, TaskStatuses} from '../../api/todolists-api';
 import {appReducer} from '../../App/app-reducer';
 import thunkMiddleware from 'redux-thunk';
-import {authReducer} from '../../features/Login/auth-reducer';
+import {authReducer} from '../../features/Auth/auth-reducer';
 import {configureStore} from '@reduxjs/toolkit';
 import {HashRouter} from 'react-router-dom';
 

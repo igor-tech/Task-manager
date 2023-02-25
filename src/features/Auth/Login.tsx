@@ -12,6 +12,7 @@ import {Button} from '@material-ui/core';
 import {useAppDispatch, useAppSelector} from '../../App/store';
 import {loginTC} from './auth-reducer';
 import {Navigate} from 'react-router-dom';
+import {selectIsLoggedIn} from './selectors';
 
 type FormValuesType = {
     email: string
@@ -22,7 +23,7 @@ type FormValuesType = {
 
 export const Login = () => {
 
-    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const isLoggedIn = useAppSelector(selectIsLoggedIn)
     const dispatch = useAppDispatch()
     const formik = useFormik({
         validate: (values) => {
