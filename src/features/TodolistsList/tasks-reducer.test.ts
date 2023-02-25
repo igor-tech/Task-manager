@@ -1,8 +1,8 @@
-import {tasksReducer} from './tasks-reducer'
+import {addTask, deleteTask, fetchTasks, tasksReducer, updateTask} from './tasks-reducer'
 
 import {TaskPriorities, TaskStatuses, TaskType} from '../../api/todolists-api';
-import {addTask, deleteTask, fetchTasks, updateTask} from './tasks-actions';
-import {addTodolist, fetchTodolists, removeTodolist} from './todolists-actions';
+import {addTodolist, fetchTodolists, removeTodolist} from './todolists-reducer';
+
 
 
 let todolistId1: string;
@@ -186,6 +186,7 @@ test('correct task should be added to correct array', () => {
         id: 'fasd'
     }
     const action = addTask.fulfilled(task, 'requestId', {title: 'juice', todolistId: todolistId2})
+
 
     const endState = tasksReducer(startState, action)
 
