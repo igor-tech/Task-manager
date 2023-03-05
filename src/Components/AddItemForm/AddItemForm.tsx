@@ -3,12 +3,11 @@ import {IconButton, TextField} from '@material-ui/core';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 
 export type AddItemFormPropsType = {
-    addItem: (title: string) => void
+    addItem: (title: string, helpers: { setError: (error: string) => void, setValue: (title: string) => void }) => void
     disabled?: boolean
 
 }
 export const AddItemForm = memo(({addItem, disabled}: AddItemFormPropsType) => {
-    // console.log('AddItemForm is called')
     let [value, setValue] = useState('')
     let [error, setError] = useState<string | null>(null)
 
@@ -23,33 +22,32 @@ export const AddItemForm = memo(({addItem, disabled}: AddItemFormPropsType) => {
         }
 
         if (event.key === 'Enter') {
-            addTaskHandler()
+            return addTaskHandler()
         }
     }
 
     const addTaskHandler = () => {
         if (value.trim() !== '') {
-            addItem(value.trim())
-            setValue('')
+            addItem(value.trim(), {setError, setValue})
         } else {
             setError('Title is required')
         }
     }
 
-    return <div>
+    return <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'start'}}>
         <TextField
             variant={'outlined'}
             value={value}
             onChange={onChangeHandler}
-            label={"Type value"}
+            label={'Type value'}
             onKeyPress={onKeyPressHandler}
             error={!!error}
             helperText={error}
             disabled={disabled}
         />
 
-        <IconButton onClick={addTaskHandler} disabled={disabled} color={'primary'} >
-            <AddBoxIcon fontSize={'large'} />
+        <IconButton onClick={addTaskHandler} disabled={disabled} color={'primary'} style={{marginTop: '5px'}}>
+            <AddBoxIcon fontSize={'medium'}/>
         </IconButton>
 
     </div>

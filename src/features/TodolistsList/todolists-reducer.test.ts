@@ -6,9 +6,8 @@ import {
     changeTodolistEntityStatus,
     changeTodolistFilter, changeTodolistTitle, fetchTodolists,
     FilterValuesType, removeTodolist, TodolistDomainType,
-    todolistsReducer
 } from './todolists-reducer';
-
+import {todolistsReducer} from './index'
 let todolistId1: string;
 let todolistId2: string;
 let startState: Array<TodolistDomainType>
@@ -76,7 +75,7 @@ test('correct filter of todolist should be changed', () => {
 
 test('todolists should be set to the state', () => {
 
-    const action = fetchTodolists.fulfilled({todolists: startState}, '')
+    const action = fetchTodolists.fulfilled({todolists: startState}, '', undefined)
 
 
     const endState = todolistsReducer([], action)

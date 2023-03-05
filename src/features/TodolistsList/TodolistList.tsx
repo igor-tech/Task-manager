@@ -1,11 +1,12 @@
 import React, {FC, useEffect} from 'react';
-import {useActions, useAppSelector} from '../../App/store';
-import {Grid, Paper} from '@material-ui/core';
+import {useAppSelector} from '../../App/store';
+import {Grid} from '@material-ui/core';
 import {AddItemForm} from '../../Components/AddItemForm/AddItemForm';
 import {Todolist} from './Todolist/Todolist';
 import {Navigate} from 'react-router-dom';
 import {selectIsLoggedIn} from '../Auth/selectors';
 import {todolistsActions} from './index';
+import {useActions, useAppDispatch} from '../../utils/redux-utils';
 
 type PropsType = {
     demo?: boolean
@@ -14,33 +15,46 @@ export const TodolistsList: FC<PropsType> = ({demo = false}) => {
     const todolists = useAppSelector(store => store.todolists)
     const tasks = useAppSelector(store => store.tasks)
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
-    const {addTodolist, fetchTodolists} = useActions(todolistsActions)
+    const {fetchTodolists} = useActions(todolistsActions)
+    const dispatch = useAppDispatch()
     useEffect(() => {
         if (demo || !isLoggedIn) {
             return
         }
         fetchTodolists()
-    }, [])
+    }, [isLoggedIn])
 
     if (!isLoggedIn) {
         return <Navigate to="/login"/>
     }
+
+    const addTodolistCallBack = async (title: string, helpers: { setError: (error: string) => void, setValue: (title: string) => void }) => {
+        const action = await dispatch(todolistsActions.addTodolist(title))
+        if (todolistsActions.addTodolist.rejected.match(action)) {
+            if (action.payload?.errors?.length) {
+                const errorMessage = action.payload?.errors[0]
+                helpers.setError(errorMessage)
+            }
+        } else {
+            helpers.setValue('')
+        }
+    }
     return <>
-        <Grid container style={{padding: '20px'}}>
-            <AddItemForm addItem={addTodolist}/>
+        <Grid style={{padding: '20px', width: '290px'}}>
+            <AddItemForm addItem={addTodolistCallBack}/>
         </Grid>
-        <Grid container spacing={3}>
+        <Grid container spacing={6} wrap={'nowrap'} style={{overflowX: 'auto' , height: '86vh'}}>
             {
                 todolists.map((tl) => {
                     let taskForTodolist = tasks[tl.id]
                     return (<Grid item key={tl.id}>
-                            <Paper style={{padding: '10px'}}>
+                            <div style={{width: '315px'}}>
                                 <Todolist
                                     todolist={tl}
                                     demo={demo}
                                     tasks={taskForTodolist}
                                 />
-                            </Paper>
+                            </div>
                         </Grid>
                     )
                 })

@@ -4,14 +4,13 @@ import {Provider} from 'react-redux';
 import React from 'react'
 import {combineReducers} from 'redux'
 import {v1} from 'uuid'
-import {tasksReducer} from '../../features/TodolistsList/tasks-reducer';
-import {todolistsReducer} from '../../features/TodolistsList/todolists-reducer';
 import {TaskPriorities, TaskStatuses} from '../../api/todolists-api';
-import {appReducer} from '../../App/app-reducer';
 import thunkMiddleware from 'redux-thunk';
-import {authReducer} from '../../features/Auth/auth-reducer';
 import {configureStore} from '@reduxjs/toolkit';
 import {HashRouter} from 'react-router-dom';
+import { authReducer } from '../../features/Auth';
+import {appReducer} from '../../App';
+import {tasksReducer, todolistsReducer} from '../../features/TodolistsList';
 
 
 const rootReducer = combineReducers({
@@ -23,7 +22,7 @@ const rootReducer = combineReducers({
 
 const initialGlobalState: AppRootStateType = {
     todolists: [
-        {id: 'todolistId1', title: 'What to learn', filter: 'all', order: 0, addedDate: '', entityStatus: 'idle'},
+        {id: 'todolistId1', title: 'What to learn asfdddddddddddd dddddddddddddd ddddddddddd ddddddddddd ddddddd dddddddddddddddddddddddddddddddddddddddddddddddddddd', filter: 'all', order: 0, addedDate: '', entityStatus: 'idle'},
         {id: 'todolistId2', title: 'What to buy', filter: 'all', order: 0, addedDate: '', entityStatus: 'loading'}
     ],
     tasks: {
@@ -83,7 +82,8 @@ const initialGlobalState: AppRootStateType = {
     app: {
         status: 'succeeded',
         error: null,
-        initialized: true
+        initialized: true,
+        isLoadingTodo: false
     },
     auth: {
         isLoggedIn: true

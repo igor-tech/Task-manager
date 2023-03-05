@@ -1,38 +1,36 @@
 import React, {useCallback, useEffect} from 'react';
 import './App.css';
-
 import {Menu} from '@material-ui/icons';
-import {ErrorSnackbar} from '../Components/ErrorSnackbar/ErrorSnackbar';
 import {Navigate, Route, Routes} from 'react-router-dom';
 import Button from '@mui/material/Button';
 import {AppBar, Box, CircularProgress, Container, LinearProgress, Typography} from '@material-ui/core';
 import {IconButton, Toolbar} from '@mui/material';
-import {logoutTC} from '../features/Auth/auth-reducer';
-import {useAppDispatch, useAppSelector} from './store';
-import {appSelectors} from './index';
-import {TodolistsList} from '../features/TodolistsList/TodolistList';
-import {initializedAppTC} from './app-reducer';
-import {authSelectors} from '../features/Auth';
-import {Login} from '../features/Auth/Login';
+import {useAppSelector} from './store';
+import {appActions, appSelectors} from './index';
+import {authActions, authSelectors, Login} from '../features/Auth';
+import {TodolistsList} from '../features/TodolistsList';
+import {ErrorSnackbar} from '../Components';
+import {useActions} from '../utils/redux-utils';
 
 type PropsType = {
     demo?: boolean
 }
 
 function App({demo = false}: PropsType) {
-    const dispatch = useAppDispatch()
     const status = useAppSelector(appSelectors.selectStatus)
     const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
     const isInitialized = useAppSelector(appSelectors.selectIsInitialized)
+    const {logout} = useActions(authActions)
+    const {initializedApp} = useActions(appActions)
 
     useEffect(() => {
         if (!demo) {
-            dispatch(initializedAppTC())
+            initializedApp()
         }
     }, [])
 
-    const logoutHandler = useCallback(() => {
-        dispatch(logoutTC())
+    const logoutHandler = useCallback(async () => {
+        logout()
     }, [])
 
     if (!isInitialized) {
@@ -40,6 +38,7 @@ function App({demo = false}: PropsType) {
             <CircularProgress/>
         </div>)
     }
+
     return (
         <div className="App">
             <ErrorSnackbar/>
@@ -49,8 +48,7 @@ function App({demo = false}: PropsType) {
                         <Menu/>
                     </IconButton>
                     <Typography variant="h6"
-                                style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
-                        News
+                                style={{display: 'flex', justifyContent: 'end', width: '100%'}}>
                         {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Log out</Button>}
                     </Typography>
                 </Toolbar>
@@ -58,7 +56,7 @@ function App({demo = false}: PropsType) {
                     {status === 'loading' && <LinearProgress/>}
                 </Box>
             </AppBar>
-            <Container fixed>
+            <Container maxWidth={'xl'}>
                 <Routes>
                     <Route path="/" element={<Navigate to={'/profile'}/>}/>
                     <Route path="/profile" element={<TodolistsList demo={demo}/>}/>

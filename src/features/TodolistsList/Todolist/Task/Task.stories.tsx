@@ -1,11 +1,13 @@
 import {Task} from './Task';
 import React from 'react';
 import {TaskStatuses} from '../../../../api/todolists-api';
+import {ReduxStoreProviderDecorator} from '../../../../stories/decorators/ReduxStoreProviderDecorator';
 
 
 export default {
     title: 'Task Component',
-    component: Task
+    component: Task,
+    decorators: [ReduxStoreProviderDecorator]
 }
 
 export const TaskBaseExample = () => {
