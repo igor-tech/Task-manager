@@ -17,18 +17,19 @@ import {selectIsLoggedIn} from '../../Auth/selectors';
 type TodolistType = {
     todolist: TodolistDomainType
     tasks: Array<TaskType>
-    demo?: boolean
 }
 
-export const Todolist = memo(({demo = false, tasks, ...props}: TodolistType) => {
+export const Todolist = memo(({tasks, ...props}: TodolistType) => {
     const {changeTodolistFilter, removeTodolist, changeTodolistTitle} = useActions(todolistsActions)
     const {addTask, fetchTasks} = useActions(tasksActions)
     const dispatch = useAppDispatch()
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
-    if (typeof demo === 'undefined') demo = false
 
     useEffect( () => {
-        if (!demo || isLoggedIn) {
+        if (!isLoggedIn) {
+            return
+        }
+        if (!tasks.length) {
             fetchTasks(props.todolist.id);
         }
     }, [])
@@ -36,7 +37,6 @@ export const Todolist = memo(({demo = false, tasks, ...props}: TodolistType) => 
     const removeTodolistHandler = () => {
         removeTodolist(props.todolist.id)
     }
-
     const addTaskHandler = useCallback(async (title: string, helpers: { setError: (error: string) => void, setValue: (title: string) => void }) => {
         const action = await dispatch(tasksActions.addTask({title, todolistId: props.todolist.id}))
         if (tasksActions.addTask.rejected.match(action)) {

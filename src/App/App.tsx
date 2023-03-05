@@ -12,22 +12,19 @@ import {TodolistsList} from '../features/TodolistsList';
 import {ErrorSnackbar} from '../Components';
 import {useActions} from '../utils/redux-utils';
 
-type PropsType = {
-    demo?: boolean
-}
 
-function App({demo = false}: PropsType) {
+function App() {
     const status = useAppSelector(appSelectors.selectStatus)
     const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
     const isInitialized = useAppSelector(appSelectors.selectIsInitialized)
     const {logout} = useActions(authActions)
     const {initializedApp} = useActions(appActions)
-
+    console.log(1)
     useEffect(() => {
-        if (!demo) {
+        if (!isInitialized) {
             initializedApp()
         }
-    }, [])
+    }, []);
 
     const logoutHandler = useCallback(async () => {
         logout()
@@ -59,7 +56,7 @@ function App({demo = false}: PropsType) {
             <Container maxWidth={'xl'}>
                 <Routes>
                     <Route path="/" element={<Navigate to={'/profile'}/>}/>
-                    <Route path="/profile" element={<TodolistsList demo={demo}/>}/>
+                    <Route path="/profile" element={<TodolistsList/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="*" element={<h1>404: PAGE NOT FOUND</h1>}/>
                 </Routes>

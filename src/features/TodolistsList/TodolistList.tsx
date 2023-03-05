@@ -8,20 +8,19 @@ import {selectIsLoggedIn} from '../Auth/selectors';
 import {todolistsActions} from './index';
 import {useActions, useAppDispatch} from '../../utils/redux-utils';
 
-type PropsType = {
-    demo?: boolean
-}
-export const TodolistsList: FC<PropsType> = ({demo = false}) => {
+export const TodolistsList: FC = () => {
     const todolists = useAppSelector(store => store.todolists)
     const tasks = useAppSelector(store => store.tasks)
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
     const {fetchTodolists} = useActions(todolistsActions)
     const dispatch = useAppDispatch()
     useEffect(() => {
-        if (demo || !isLoggedIn) {
+        if (!isLoggedIn) {
             return
         }
-        fetchTodolists()
+        if (!todolists.length) {
+            fetchTodolists()
+        }
     }, [isLoggedIn])
 
     if (!isLoggedIn) {
@@ -43,7 +42,7 @@ export const TodolistsList: FC<PropsType> = ({demo = false}) => {
         <Grid style={{padding: '20px', width: '290px'}}>
             <AddItemForm addItem={addTodolistCallBack}/>
         </Grid>
-        <Grid container spacing={6} wrap={'nowrap'} style={{overflowX: 'auto' , height: '86vh'}}>
+        <Grid container spacing={6} wrap={'nowrap'} style={{overflowX: 'auto', height: '86vh'}}>
             {
                 todolists.map((tl) => {
                     let taskForTodolist = tasks[tl.id]
@@ -51,7 +50,6 @@ export const TodolistsList: FC<PropsType> = ({demo = false}) => {
                             <div style={{width: '315px'}}>
                                 <Todolist
                                     todolist={tl}
-                                    demo={demo}
                                     tasks={taskForTodolist}
                                 />
                             </div>
