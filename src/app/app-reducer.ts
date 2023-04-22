@@ -1,29 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { authAPI } from 'features/todolists-list/todolists-api'
-import { AxiosError } from 'axios'
-import { setIsLoggedIn } from 'features/auth/auth-reducer'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { authThunks } from 'features/auth/auth-reducer'
 import { fetchTodolists } from 'features/todolists-list/todolits/todolists-reducer'
-import { handleAsyncServerAppError, handleAsyncServerNetworkError } from 'common/utils'
-
-const initializedApp = createAsyncThunk('app/initializeApp', async (arg, thunkAPI) => {
-  thunkAPI.dispatch(setAppStatus({ status: 'loading' }))
-  try {
-    const res = await authAPI.me()
-    if (res.data.resultCode === 0) {
-      thunkAPI.dispatch(setIsLoggedIn({ value: true }))
-    } else {
-      return handleAsyncServerAppError(res.data, thunkAPI)
-    }
-  } catch (err) {
-    return handleAsyncServerNetworkError(err as AxiosError, thunkAPI)
-  } finally {
-    thunkAPI.dispatch(setInitialized(true))
-  }
-})
-
-export const asyncActions = {
-  initializedApp,
-}
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 const initialState = {
@@ -50,13 +27,31 @@ export const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(initializedApp.fulfilled, (state) => {
+      .addCase(authThunks.initializedApp.fulfilled, (state) => {
         state.initialized = true
         state.status = 'succeeded'
       })
       .addCase(fetchTodolists.fulfilled, (state) => {
         state.isLoadingTodo = true
       })
+      .addMatcher(
+        (action) => action.type.endsWith('/pending'),
+        (state) => {
+          state.status = 'loading'
+        }
+      )
+      .addMatcher(
+        (action) => action.type.endsWith('/fulfilled'),
+        (state) => {
+          state.status = 'succeeded'
+        }
+      )
+      .addMatcher(
+        (action) => action.type.endsWith('/rejected'),
+        (state) => {
+          state.status = 'failed'
+        }
+      )
   },
 })
 
