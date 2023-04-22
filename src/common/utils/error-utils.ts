@@ -1,6 +1,6 @@
 import { setAppError, setAppStatus } from 'app/app-reducer'
 import { AxiosError } from 'axios'
-import { ResponseType } from 'features/todolists-list/todolists-api'
+import { ResponseType } from 'common/types'
 
 type ThunkAPI = {
   dispatch: (action: any) => void

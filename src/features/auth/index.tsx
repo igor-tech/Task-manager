@@ -1,11 +1,5 @@
-import * as authSelectors from './selectors'
 import { Login } from './Login'
-import { authThunks } from './auth-reducer'
-import { slice } from './auth-reducer'
-const authActions = {
-  ...authThunks,
-  ...slice.actions,
-}
-const authReducer = slice.reducer
+import * as authSelectors from './selectors'
 
-export { authActions, authSelectors, Login, authReducer }
+export { authReducer, authThunks } from './auth-reducer'
+export { authSelectors, Login }

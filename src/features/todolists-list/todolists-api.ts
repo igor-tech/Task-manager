@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { ResponseType } from 'common/types'
 
 const settings = {
   withCredentials: true,
@@ -70,13 +71,7 @@ export type TodolistType = {
   addedDate: string
   order: number
 }
-export type filedErrorsType = { field: string; error: string }
-export type ResponseType<D = {}> = {
-  resultCode: number
-  messages: string[]
-  fieldsErrors?: Array<filedErrorsType>
-  data: D
-}
+
 export enum TaskStatuses {
   New = 0,
   InProgress = 1,
