@@ -1,36 +1,37 @@
+import Checkbox from '@material-ui/core/Checkbox'
 import { Delete } from '@material-ui/icons'
 import { IconButton } from '@mui/material'
-import { TaskStatuses, TaskType } from 'features/todolists-list/todolists-api'
 import { EditableSpan } from 'common/components/EditableSpan/EditableSpan'
+import { useActions } from 'common/hooks'
+import { useAppDispatch } from 'common/hooks/useAppDispatch'
 import { tasksActions } from 'features/todolists-list/index'
-import React, { ChangeEvent, memo, useCallback } from 'react'
-import Checkbox from '@material-ui/core/Checkbox'
-import { useActions, useAppDispatch } from 'common/utils'
+import { TaskStatuses, TaskType } from 'features/todolists-list/todolists-api'
+import React, { ChangeEvent, FC, memo, useCallback } from 'react'
 
-type TaskPropsType = {
+type PropsType = {
   task: TaskType
   todolistId: string
 }
-export const Task = memo((props: TaskPropsType) => {
+export const Task: FC<PropsType> = memo(({ task, todolistId }) => {
   const { deleteTask, updateTask } = useActions(tasksActions)
   const dispatch = useAppDispatch()
 
   const removeTaskHandler = useCallback(() => {
-    deleteTask({ taskId: props.task.id, todolistId: props.todolistId })
-  }, [props.task.id, props.todolistId])
+    deleteTask({ taskId: task.id, todolistId: todolistId })
+  }, [task.id, todolistId])
 
   const onChangeStatusHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       let newIsDoneValue = e.currentTarget.checked
       updateTask({
-        id: props.task.id,
-        todolistId: props.todolistId,
+        id: task.id,
+        todolistId: todolistId,
         domainModel: {
           status: newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New,
         },
       })
     },
-    [props.task.id, props.task.status, props.todolistId]
+    [task.id, task.status, todolistId]
   )
 
   const onChangeTitleHandler = useCallback(
@@ -44,9 +45,9 @@ export const Task = memo((props: TaskPropsType) => {
     ) => {
       const action = await dispatch(
         tasksActions.updateTask({
-          id: props.task.id,
+          id: task.id,
           domainModel: { title: newValue },
-          todolistId: props.todolistId,
+          todolistId: todolistId,
         })
       )
       if (tasksActions.updateTask.rejected.match(action)) {
@@ -59,11 +60,11 @@ export const Task = memo((props: TaskPropsType) => {
         helpers.setEditMode(false)
       }
     },
-    [props.task.id, props.todolistId]
+    [task.id, todolistId]
   )
 
   return (
-    <div key={props.task.id}>
+    <div key={task.id}>
       <div
         style={{
           display: 'flex',
@@ -71,7 +72,7 @@ export const Task = memo((props: TaskPropsType) => {
           justifyContent: 'space-between',
         }}
       >
-        <Checkbox checked={props.task.status === TaskStatuses.Completed} onChange={onChangeStatusHandler} />
+        <Checkbox checked={task.status === TaskStatuses.Completed} onChange={onChangeStatusHandler} />
         <div
           style={{
             display: 'flex',
@@ -80,7 +81,7 @@ export const Task = memo((props: TaskPropsType) => {
             width: '100%',
           }}
         >
-          <EditableSpan title={props.task.title} onChange={onChangeTitleHandler} />
+          <EditableSpan title={task.title} onChange={onChangeTitleHandler} />
         </div>
         <IconButton aria-label='delete' onClick={removeTaskHandler}>
           <Delete />
