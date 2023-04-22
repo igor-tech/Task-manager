@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { setInitialized } from 'app/app-reducer'
 import { AxiosError } from 'axios'
 import { handleAsyncServerAppError, handleAsyncServerNetworkError } from 'common/utils'
 import { createAppAsyncThunk } from 'common/utils/create-app-async-thunk'
@@ -38,6 +39,8 @@ const initializedApp = createAppAsyncThunk<{ isLoggedIn: boolean }>('app/initial
     }
   } catch (err) {
     return handleAsyncServerNetworkError(err as AxiosError, thunkAPI)
+  } finally {
+    thunkAPI.dispatch(setInitialized(true))
   }
 })
 

@@ -46,9 +46,10 @@ export const Login = () => {
     },
     onSubmit: async (values: FormValuesType, formikHelpers: FormikHelpers<FormValuesType>) => {
       const action = await dispacth(authActions.login(values))
+      console.log(action)
       if (authActions.login.rejected.match(action)) {
-        if (action.payload?.fieldsErrors?.length) {
-          const error = action.payload?.fieldsErrors[0]
+        if (action.payload?.data.fieldsErrors?.length) {
+          const error = action.payload?.data.fieldsErrors[0]
           formikHelpers.setFieldError(error?.field, error?.error)
         }
       }
