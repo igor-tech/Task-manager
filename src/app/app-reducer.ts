@@ -48,7 +48,15 @@ export const slice = createSlice({
       )
       .addMatcher(
         (action) => action.type.endsWith('/rejected'),
-        (state) => {
+        (state, action) => {
+          const { payload, error } = action
+          if (payload) {
+            if (payload.showGlobalError) {
+              state.error = payload.data.messages.length ? payload.data.messages[0] : 'Some error occurred'
+            }
+          } else {
+            state.error = error.message ? error.message : 'Some error occurred'
+          }
           state.status = 'failed'
         }
       )
