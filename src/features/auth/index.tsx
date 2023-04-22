@@ -1,9 +1,9 @@
 import * as authSelectors from './selectors'
 import { Login } from './Login'
-import { asyncActions } from './auth-reducer'
+import { authThunks } from './auth-reducer'
 import { slice } from './auth-reducer'
 const authActions = {
-  ...asyncActions,
+  ...authThunks,
   ...slice.actions,
 }
 const authReducer = slice.reducer

@@ -3,7 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { Provider } from 'react-redux'
-import { store } from 'app/store'
+import { store } from 'app/store/store'
 import { BrowserRouter } from 'react-router-dom'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
@@ -25,3 +25,4 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
     rerenderEntireTree()
   })
 }
+export { useAppDispatch } from 'common/hooks/useAppDispatch'

@@ -1,36 +1,33 @@
 import { Button, IconButton } from '@material-ui/core'
 import { Delete } from '@material-ui/icons'
 import { Paper, PropTypes } from '@mui/material'
-import { TaskStatuses, TaskType } from 'features/todolists-list/todolists-api'
-import { useAppSelector } from 'app/store'
 import { AddItemForm } from 'common/components/AddItemForm/AddItemForm'
 import { EditableSpan } from 'common/components/EditableSpan/EditableSpan'
+import { useActions } from 'common/hooks'
+import { useAppDispatch } from 'common/hooks/useAppDispatch'
+import { useAppSelector } from 'common/hooks/useAppSelector'
 import { tasksActions, todolistsActions } from 'features/todolists-list/index'
 import { Task } from 'features/todolists-list/tasks/task/Task'
+import { TaskStatuses, TaskType } from 'features/todolists-list/todolists-api'
 import { FilterValuesType, TodolistDomainType } from 'features/todolists-list/todolits/todolists-reducer'
-import React, { memo, useCallback, useEffect } from 'react'
-import { useActions, useAppDispatch } from 'common/utils'
+import React, { FC, memo, useCallback, useEffect } from 'react'
 
 import { selectIsLoggedIn } from '../../auth/selectors'
 
-type TodolistType = {
+type PropsType = {
   todolist: TodolistDomainType
   tasks: Array<TaskType>
 }
 
-export const Todolist = memo(({ tasks, ...props }: TodolistType) => {
+export const Todolist: FC<PropsType> = memo(({ tasks, ...props }) => {
   const { changeTodolistFilter, removeTodolist, changeTodolistTitle } = useActions(todolistsActions)
   const { addTask, fetchTasks } = useActions(tasksActions)
   const dispatch = useAppDispatch()
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      return
-    }
-    if (!tasks.length) {
-      fetchTasks(props.todolist.id)
-    }
+    if (!isLoggedIn) return
+    if (!tasks.length) fetchTasks(props.todolist.id)
   }, [])
 
   const removeTodolistHandler = () => {

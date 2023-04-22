@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { TaskPriorities, TaskStatuses } from 'features/todolists-list/todolists-api'
 import { appReducer } from 'app'
-import { AppRootStateType } from 'app/store'
+import { AppRootStateType } from 'app/store/store'
 import { authReducer } from 'features/auth'
 import { tasksReducer, todolistsReducer } from 'features/todolists-list'
 

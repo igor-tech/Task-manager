@@ -1,26 +1,24 @@
-import { useAppSelector } from 'app/store'
-import { AddItemForm } from 'common/components/AddItemForm/AddItemForm'
-import React, { FC, useEffect } from 'react'
 import { Grid } from '@material-ui/core'
-import { useActions, useAppDispatch } from 'common/utils'
-import { Todolist } from './todolist/Todolist'
+import { AddItemForm } from 'common/components/AddItemForm/AddItemForm'
+import { useActions } from 'common/hooks'
+import { useAppDispatch } from 'common/hooks/useAppDispatch'
+import { useAppSelector } from 'common/hooks/useAppSelector'
+import { selectTasks, selectTodolists } from 'common/selectors'
+import React, { FC, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 import { selectIsLoggedIn } from '../auth/selectors'
 import { todolistsActions } from './index'
+import { Todolist } from './todolist/Todolist'
 
 export const TodolistsList: FC = () => {
-  const todolists = useAppSelector((store) => store.todolists)
-  const tasks = useAppSelector((store) => store.tasks)
+  const todolists = useAppSelector(selectTodolists)
+  const tasks = useAppSelector(selectTasks)
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
   const { fetchTodolists } = useActions(todolistsActions)
   const dispatch = useAppDispatch()
   useEffect(() => {
-    if (!isLoggedIn) {
-      return
-    }
-    if (!todolists.length) {
-      fetchTodolists()
-    }
+    if (!isLoggedIn) return
+    if (!todolists.length) fetchTodolists({})
   }, [isLoggedIn])
 
   if (!isLoggedIn) {

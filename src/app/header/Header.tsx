@@ -2,20 +2,20 @@ import { AppBar, Box, LinearProgress, Typography } from '@material-ui/core'
 import { Menu } from '@material-ui/icons'
 import { IconButton, Toolbar } from '@mui/material'
 import Button from '@mui/material/Button'
-import { appSelectors } from 'app/index'
-import { useAppSelector } from 'app/store'
-import { useActions } from 'common/utils'
-import { authActions, authSelectors } from 'features/auth'
+import { useActions } from 'common/hooks'
+import { useAppSelector } from 'common/hooks/useAppSelector'
+import { selectStatus } from 'common/selectors'
+import { authActions } from 'features/auth'
+import { selectIsLoggedIn } from 'features/auth/selectors'
 import React, { useCallback } from 'react'
 
 export const Header = () => {
-  const status = useAppSelector(appSelectors.selectStatus)
-  const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
+  const status = useAppSelector(selectStatus)
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
   const { logout } = useActions(authActions)
 
-  const logoutHandler = useCallback(async () => {
-    logout()
-  }, [])
+  const logoutHandler = useCallback(async () => logout({}), [])
+
   return (
     <>
       <AppBar position='static'>

@@ -2,9 +2,9 @@ import { Snackbar, Stack } from '@mui/material'
 
 import MuiAlert, { AlertProps } from '@mui/material/Alert'
 import { setAppError, setAppStatus } from 'app/app-reducer'
-import { useAppSelector } from 'app/store'
+import { useAppDispatch } from 'common/hooks/useAppDispatch'
+import { useAppSelector } from 'common/hooks/useAppSelector'
 import * as React from 'react'
-import { useAppDispatch } from 'common/utils'
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
