@@ -1,42 +1,39 @@
-import { useAppDispatch } from 'common/hooks/useAppDispatch'
-import { useAppSelector } from 'common/hooks/useAppSelector'
-import React from 'react'
-import Grid from '@mui/material/Grid'
+import { Button } from '@material-ui/core'
 import Checkbox from '@mui/material/Checkbox'
 import FormControl from '@mui/material/FormControl'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormGroup from '@mui/material/FormGroup'
 import FormLabel from '@mui/material/FormLabel'
+import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
-
+import { useActions } from 'common/hooks'
+import { useAppSelector } from 'common/hooks/useAppSelector'
+import { authThunks } from 'features/auth/auth-reducer'
+import { LoginParamsType } from 'features/todolists-list/todolists-api'
 import { FormikHelpers, useFormik } from 'formik'
-import { Button } from '@material-ui/core'
+import React from 'react'
 import { Navigate } from 'react-router-dom'
 import { selectIsLoggedIn } from './selectors'
-import { authActions } from './index'
 
-type FormValuesType = {
-  email: string
-  password: string
-  rememberMe: boolean
-  captcha: string
-}
+type FormValuesType = Required<LoginParamsType>
 
 export const Login = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
-  const dispacth = useAppDispatch()
+  const { login } = useActions(authThunks)
   const formik = useFormik({
     validate: (values) => {
+      let errors: Partial<LoginParamsType> = {}
       if (!values.email) {
-        return {
-          email: 'email is required',
-        }
+        errors.email = 'Required'
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = 'Invalid email address'
       }
       if (!values.password) {
-        return {
-          email: 'password is required',
-        }
+        errors.password = 'Required'
+      } else if (values.password.length < 3) {
+        errors.password = 'Password must be at least 3 characters long'
       }
+      return errors
     },
     initialValues: {
       email: '',
@@ -45,9 +42,8 @@ export const Login = () => {
       captcha: '',
     },
     onSubmit: async (values: FormValuesType, formikHelpers: FormikHelpers<FormValuesType>) => {
-      const action = await dispacth(authActions.login(values))
-      console.log(action)
-      if (authActions.login.rejected.match(action)) {
+      const action = await login(values)
+      if (authThunks.login.rejected.match(action)) {
         if (action.payload?.data.fieldsErrors?.length) {
           const error = action.payload?.data.fieldsErrors[0]
           formikHelpers.setFieldError(error?.field, error?.error)
