@@ -1,9 +1,9 @@
+import App from 'app/App'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import App from './App/App'
 import { Provider } from 'react-redux'
-import { store } from 'App/store'
+import { store } from 'app/store'
 import { BrowserRouter } from 'react-router-dom'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
@@ -21,7 +21,7 @@ const rerenderEntireTree = () => {
 rerenderEntireTree()
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
-  module.hot.accept('./App/App', () => {
+  module.hot.accept('./app/App', () => {
     rerenderEntireTree()
   })
 }
