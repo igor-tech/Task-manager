@@ -1,18 +1,17 @@
-import {AddItemForm} from './AddItemForm';
-import {action} from '@storybook/addon-actions';
-
+import { AddItemForm } from './AddItemForm'
+import { action } from '@storybook/addon-actions'
 
 export default {
-    title: 'AddItemForm Component',
-    component: AddItemForm
+  title: 'AddItemForm Component',
+  component: AddItemForm,
 }
 
-const callBack =  async () => {
-    action('Buttin add was pressed inside the form')
+const callBack = async () => {
+  action('Buttin add was pressed inside the form')
 }
 export const AddItemFormBaseExample = () => {
-    return <AddItemForm addItem={callBack}/>
+  return <AddItemForm addItem={callBack} />
 }
 export const AddItemFormDisabledExample = () => {
-    return <AddItemForm disabled={true} addItem={callBack}/>
+  return <AddItemForm disabled={true} addItem={callBack} />
 }

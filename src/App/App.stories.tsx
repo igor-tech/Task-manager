@@ -1,12 +1,12 @@
-import App from './App';
-import {ReduxStoreProviderDecorator} from '../stories/decorators/ReduxStoreProviderDecorator';
+import { ReduxStoreProviderDecorator } from 'stories/decorators/ReduxStoreProviderDecorator'
+import App from './App'
 
 export default {
-    title: 'App Base Component',
-    component: App,
-    decorators: [ReduxStoreProviderDecorator],
+  title: 'App Base Component',
+  component: App,
+  decorators: [ReduxStoreProviderDecorator],
 }
 
 export const AppBaseExample = () => {
-    return <App/>
+  return <App />
 }

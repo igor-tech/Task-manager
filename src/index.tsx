@@ -1,29 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App/App';
-import {Provider} from 'react-redux';
-import {store} from './App/store';
-import {BrowserRouter} from 'react-router-dom';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import './index.css'
+import App from './App/App'
+import { Provider } from 'react-redux'
+import { store } from 'App/store'
+import { BrowserRouter } from 'react-router-dom'
 
-const root = ReactDOM.createRoot(
-    document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 const rerenderEntireTree = () => {
-    root.render(
-        <BrowserRouter>
-            <Provider store={store}>
-                <App/>
-            </Provider>
-        </BrowserRouter>
-    )
+  root.render(
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
+  )
 }
 
 rerenderEntireTree()
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
-    module.hot.accept('./App/App', () => {
-        rerenderEntireTree()
-    })
+  module.hot.accept('./App/App', () => {
+    rerenderEntireTree()
+  })
 }

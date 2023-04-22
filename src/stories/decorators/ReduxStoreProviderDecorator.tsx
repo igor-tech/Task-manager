@@ -1,106 +1,117 @@
-import {AppRootStateType} from '../../App/store';
-import {Provider} from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit'
+import { TaskPriorities, TaskStatuses } from 'api/todolists-api'
+import { appReducer } from 'App'
+import { AppRootStateType } from 'App/store'
+import { authReducer } from 'features/Auth'
+import { tasksReducer, todolistsReducer } from 'features/TodolistsList'
 
 import React from 'react'
-import {combineReducers} from 'redux'
-import {v1} from 'uuid'
-import {TaskPriorities, TaskStatuses} from '../../api/todolists-api';
-import thunkMiddleware from 'redux-thunk';
-import {configureStore} from '@reduxjs/toolkit';
-import {HashRouter} from 'react-router-dom';
-import { authReducer } from '../../features/Auth';
-import {appReducer} from '../../App';
-import {tasksReducer, todolistsReducer} from '../../features/TodolistsList';
-
+import { Provider } from 'react-redux'
+import { HashRouter } from 'react-router-dom'
+import { combineReducers } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import { v1 } from 'uuid'
 
 const rootReducer = combineReducers({
-    tasks: tasksReducer,
-    todolists: todolistsReducer,
-    app: appReducer,
-    auth: authReducer
+  tasks: tasksReducer,
+  todolists: todolistsReducer,
+  app: appReducer,
+  auth: authReducer,
 })
 
 const initialGlobalState: AppRootStateType = {
-    todolists: [
-        {id: 'todolistId1', title: 'What to learn asfdddddddddddd dddddddddddddd ddddddddddd ddddddddddd ddddddd dddddddddddddddddddddddddddddddddddddddddddddddddddd', filter: 'all', order: 0, addedDate: '', entityStatus: 'idle'},
-        {id: 'todolistId2', title: 'What to buy', filter: 'all', order: 0, addedDate: '', entityStatus: 'loading'}
+  todolists: [
+    {
+      id: 'todolistId1',
+      title:
+        'What to learn asfdddddddddddd dddddddddddddd ddddddddddd ddddddddddd ddddddd dddddddddddddddddddddddddddddddddddddddddddddddddddd',
+      filter: 'all',
+      order: 0,
+      addedDate: '',
+      entityStatus: 'idle',
+    },
+    {
+      id: 'todolistId2',
+      title: 'What to buy',
+      filter: 'all',
+      order: 0,
+      addedDate: '',
+      entityStatus: 'loading',
+    },
+  ],
+  tasks: {
+    ['todolistId1']: [
+      {
+        id: v1(),
+        title: 'HTML&CSS',
+        status: TaskStatuses.Completed,
+        todoListId: 'todolistId1',
+        description: '',
+        startDate: '',
+        deadline: '',
+        addedDate: '',
+        order: 0,
+        priority: TaskPriorities.Low,
+      },
+      {
+        id: v1(),
+        title: 'JS',
+        status: TaskStatuses.Completed,
+        todoListId: 'todolistId1',
+        description: '',
+        startDate: '',
+        deadline: '',
+        addedDate: '',
+        order: 0,
+        priority: TaskPriorities.Low,
+      },
     ],
-    tasks: {
-        ['todolistId1']: [
-            {
-                id: v1(),
-                title: 'HTML&CSS',
-                status: TaskStatuses.Completed,
-                todoListId: 'todolistId1',
-                description: '',
-                startDate: '',
-                deadline: '',
-                addedDate: '',
-                order: 0,
-                priority: TaskPriorities.Low
-            },
-            {
-                id: v1(),
-                title: 'JS',
-                status: TaskStatuses.Completed,
-                todoListId: 'todolistId1',
-                description: '',
-                startDate: '',
-                deadline: '',
-                addedDate: '',
-                order: 0,
-                priority: TaskPriorities.Low
-            },
-        ],
-        ['todolistId2']: [
-            {
-                id: v1(),
-                title: 'Milk',
-                status: TaskStatuses.Completed,
-                todoListId: 'todolistId2',
-                description: '',
-                startDate: '',
-                deadline: '',
-                addedDate: '',
-                order: 0,
-                priority: TaskPriorities.Low
-            },
-            {
-                id: v1(),
-                title: 'React Book',
-                status: TaskStatuses.Completed,
-                todoListId: 'todolistId2',
-                description: '',
-                startDate: '',
-                deadline: '',
-                addedDate: '',
-                order: 0,
-                priority: TaskPriorities.Low
-            },
-        ]
-    },
-    app: {
-        status: 'succeeded',
-        error: null,
-        initialized: true,
-        isLoadingTodo: false
-    },
-    auth: {
-        isLoggedIn: true
-    }
+    ['todolistId2']: [
+      {
+        id: v1(),
+        title: 'Milk',
+        status: TaskStatuses.Completed,
+        todoListId: 'todolistId2',
+        description: '',
+        startDate: '',
+        deadline: '',
+        addedDate: '',
+        order: 0,
+        priority: TaskPriorities.Low,
+      },
+      {
+        id: v1(),
+        title: 'React Book',
+        status: TaskStatuses.Completed,
+        todoListId: 'todolistId2',
+        description: '',
+        startDate: '',
+        deadline: '',
+        addedDate: '',
+        order: 0,
+        priority: TaskPriorities.Low,
+      },
+    ],
+  },
+  app: {
+    status: 'succeeded',
+    error: null,
+    initialized: true,
+    isLoadingTodo: false,
+  },
+  auth: {
+    isLoggedIn: true,
+  },
 }
 
 export const storyBookStore = configureStore({
-    reducer: rootReducer,
-    preloadedState: initialGlobalState,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunkMiddleware)
+  reducer: rootReducer,
+  preloadedState: initialGlobalState,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunkMiddleware),
 })
 
 export const ReduxStoreProviderDecorator = (storyFn: any) => (
-    <HashRouter>
-        <Provider store={storyBookStore}>
-            {storyFn()}
-        </Provider>
-    </HashRouter>
+  <HashRouter>
+    <Provider store={storyBookStore}>{storyFn()}</Provider>
+  </HashRouter>
 )
-

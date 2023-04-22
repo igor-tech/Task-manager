@@ -1,4 +1,2 @@
-import {ErrorSnackbar} from './ErrorSnackbar/ErrorSnackbar'
-export {
-    ErrorSnackbar
-}
+import { ErrorSnackbar } from './ErrorSnackbar/ErrorSnackbar'
+export { ErrorSnackbar }

@@ -1,0 +1,7 @@
+.title {
+  display: inline-block;
+  overflow: clip;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-break: break-word;
+}
