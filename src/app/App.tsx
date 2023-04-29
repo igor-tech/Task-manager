@@ -1,4 +1,4 @@
-import { Routing } from 'app/Routing/Routing'
+import { Routing } from 'app/Route-pages/Routing'
 import { ErrorSnackbar, Header } from 'common/components'
 import { CircularLoader } from 'common/components/Loader/CircularLoader'
 import { useActions } from 'common/hooks'
