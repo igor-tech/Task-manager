@@ -9,8 +9,8 @@ import {
   FilterValuesType,
   removeTodolist,
   TodolistDomainType,
-} from 'features/todolists-list/todolits/todolists-reducer'
-import { todolistsReducer } from 'features/todolists-list/index'
+} from 'features/Todolists-list/Todolits/todolists-reducer'
+import { todolistsReducer } from 'features/Todolists-list/index'
 
 let todolistId1: string
 let todolistId2: string

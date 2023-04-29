@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { setInitialized } from 'app/app-reducer'
 import { createAppAsyncThunk } from 'common/utils/create-app-async-thunk'
-import { authAPI, LoginParamsType } from 'features/auth/auth-api'
+import { authAPI, LoginParamsType } from 'features/Auth/auth-api'
 
 const login = createAppAsyncThunk<{ isLoggedIn: boolean; captchaUrl: string | null }, LoginParamsType>(
   'auth/login',

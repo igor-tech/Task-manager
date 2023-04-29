@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { authThunks } from 'features/auth/auth-reducer'
-import { fetchTodolists } from 'features/todolists-list/todolits/todolists-reducer'
+import { authThunks } from 'features/Auth/auth-reducer'
+import { fetchTodolists } from 'features/Todolists-list/Todolits/todolists-reducer'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 const initialState = {

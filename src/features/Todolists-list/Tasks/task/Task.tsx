@@ -4,8 +4,8 @@ import { IconButton } from '@mui/material'
 import { EditableSpan } from 'common/components/EditableSpan/EditableSpan'
 import { useActions } from 'common/hooks'
 import { useAppDispatch } from 'common/hooks/useAppDispatch'
-import { tasksActions } from 'features/todolists-list/index'
-import { TaskStatuses, TaskType } from 'features/todolists-list/todolists-api'
+import { tasksActions } from 'features/Todolists-list/index'
+import { TaskStatuses, TaskType } from 'features/Todolists-list/todolists-api'
 import React, { ChangeEvent, FC, memo, useCallback } from 'react'
 
 type PropsType = {

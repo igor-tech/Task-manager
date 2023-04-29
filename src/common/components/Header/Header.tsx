@@ -5,8 +5,8 @@ import Button from '@mui/material/Button'
 import { useActions } from 'common/hooks'
 import { useAppSelector } from 'common/hooks/useAppSelector'
 import { selectStatus } from 'common/selectors'
-import { authThunks } from 'features/auth/auth-reducer'
-import { selectIsLoggedIn } from 'features/auth/selectors'
+import { authThunks } from 'features/Auth/auth-reducer'
+import { selectIsLoggedIn } from 'features/Auth/selectors'
 import React, { useCallback } from 'react'
 
 export const Header = () => {

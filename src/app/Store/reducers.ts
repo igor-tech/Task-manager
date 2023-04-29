@@ -1,6 +1,6 @@
 import { appReducer } from 'app/index'
-import { authReducer } from 'features/auth/auth-reducer'
-import { tasksReducer, todolistsReducer } from 'features/todolists-list'
+import { authReducer } from 'features/Auth/auth-reducer'
+import { tasksReducer, todolistsReducer } from 'features/Todolists-list'
 import { combineReducers } from 'redux'
 
 export const rootReducer = combineReducers({

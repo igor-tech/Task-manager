@@ -6,13 +6,13 @@ import { EditableSpan } from 'common/components/EditableSpan/EditableSpan'
 import { useActions } from 'common/hooks'
 import { useAppDispatch } from 'common/hooks/useAppDispatch'
 import { useAppSelector } from 'common/hooks/useAppSelector'
-import { tasksActions, todolistsActions } from 'features/todolists-list/index'
-import { Task } from 'features/todolists-list/tasks/task/Task'
-import { TaskStatuses, TaskType } from 'features/todolists-list/todolists-api'
-import { FilterValuesType, TodolistDomainType } from 'features/todolists-list/todolits/todolists-reducer'
+import { tasksActions, todolistsActions } from 'features/Todolists-list/index'
+import { Task } from 'features/Todolists-list/Tasks/task/Task'
+import { TaskStatuses, TaskType } from 'features/Todolists-list/todolists-api'
+import { FilterValuesType, TodolistDomainType } from 'features/Todolists-list/Todolits/todolists-reducer'
 import React, { FC, memo, useCallback, useEffect } from 'react'
 
-import { selectIsLoggedIn } from '../../auth/selectors'
+import { selectIsLoggedIn } from 'features/Auth/selectors'
 
 type PropsType = {
   todolist: TodolistDomainType

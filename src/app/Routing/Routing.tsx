@@ -1,6 +1,6 @@
 import { Container } from '@material-ui/core'
-import { Login } from 'features/auth'
-import { TodolistsList } from 'features/todolists-list'
+import { Login } from 'features/Auth'
+import { TodolistsList } from 'features/Todolists-list'
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 

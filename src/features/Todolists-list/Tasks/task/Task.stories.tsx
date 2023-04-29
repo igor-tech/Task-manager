@@ -1,6 +1,6 @@
-import { TaskStatuses } from 'features/todolists-list/todolists-api'
+import { TaskStatuses } from 'features/Todolists-list/todolists-api'
 import { ReduxStoreProviderDecorator } from 'stories/decorators/ReduxStoreProviderDecorator'
-import { Task } from 'features/todolists-list/tasks/task/Task'
+import { Task } from 'features/Todolists-list/Tasks/task/Task'
 import React from 'react'
 
 export default {

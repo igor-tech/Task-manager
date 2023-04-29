@@ -6,9 +6,9 @@ import { useAppSelector } from 'common/hooks/useAppSelector'
 import { selectTasks, selectTodolists } from 'common/selectors'
 import React, { FC, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
-import { selectIsLoggedIn } from '../auth/selectors'
+import { selectIsLoggedIn } from '../Auth/selectors'
 import { todolistsActions } from './index'
-import { Todolist } from './todolist/Todolist'
+import { Todolist } from './Todolits/Todolist/Todolist'
 
 export const TodolistsList: FC = () => {
   const todolists = useAppSelector(selectTodolists)

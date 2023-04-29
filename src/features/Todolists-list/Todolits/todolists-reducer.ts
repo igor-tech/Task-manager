@@ -1,10 +1,10 @@
 import { ThunkErrorType } from 'common/types/types'
-import { todolistsAPI, TodolistType } from 'features/todolists-list/todolists-api'
+import { todolistsAPI, TodolistType } from 'features/Todolists-list/todolists-api'
 import { RequestStatusType, setAppStatus } from 'app/app-reducer'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 import { handleAsyncServerAppError, handleAsyncServerNetworkError } from 'common/utils'
-import { authThunks as asyncAuthAction } from 'features/auth/auth-reducer'
+import { authThunks as asyncAuthAction } from 'features/Auth/auth-reducer'
 
 export const fetchTodolists = createAsyncThunk<{ todolists: TodolistType[] }, undefined, ThunkErrorType>(
   'todolists/fetchTodolists',

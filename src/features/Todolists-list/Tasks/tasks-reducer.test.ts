@@ -1,8 +1,8 @@
-import { TaskPriorities, TaskStatuses, TaskType } from 'features/todolists-list/todolists-api'
-import { addTask, deleteTask, fetchTasks, updateTask } from 'features/todolists-list/tasks/tasks-reducer'
+import { TaskPriorities, TaskStatuses, TaskType } from 'features/Todolists-list/todolists-api'
+import { addTask, deleteTask, fetchTasks, updateTask } from 'features/Todolists-list/Tasks/tasks-reducer'
 
-import { addTodolist, fetchTodolists, removeTodolist } from 'features/todolists-list/todolits/todolists-reducer'
-import { tasksReducer } from 'features/todolists-list/index'
+import { addTodolist, fetchTodolists, removeTodolist } from 'features/Todolists-list/Todolits/todolists-reducer'
+import { tasksReducer } from 'features/Todolists-list/index'
 
 let todolistId1: string
 let todolistId2: string

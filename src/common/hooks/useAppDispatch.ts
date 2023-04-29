@@ -1,4 +1,4 @@
-import { AppRootStateType } from 'app/store/store'
+import { AppRootStateType } from 'app/Store/store'
 import { useDispatch } from 'react-redux'
 import { AnyAction } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'

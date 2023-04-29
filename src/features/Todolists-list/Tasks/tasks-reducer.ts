@@ -6,13 +6,13 @@ import {
   TaskType,
   todolistsAPI,
   UpdateTaskModelType,
-} from 'features/todolists-list/todolists-api'
+} from 'features/Todolists-list/todolists-api'
 import { setAppStatus } from 'app/app-reducer'
-import { AppRootStateType } from 'app/store/store'
+import { AppRootStateType } from 'app/Store/store'
 import { AxiosError } from 'axios'
 import { handleAsyncServerAppError, handleAsyncServerNetworkError } from 'common/utils'
-import { authThunks as asyncAuthAction } from 'features/auth/auth-reducer'
-import { addTodolist, fetchTodolists, removeTodolist } from 'features/todolists-list/todolits/todolists-reducer'
+import { authThunks as asyncAuthAction } from 'features/Auth/auth-reducer'
+import { addTodolist, fetchTodolists, removeTodolist } from 'features/Todolists-list/Todolits/todolists-reducer'
 
 export const fetchTasks = createAsyncThunk<{ tasks: TaskType[]; todolistId: string }, string, ThunkErrorType>(
   'tasks/fetchTasks',
