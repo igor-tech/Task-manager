@@ -1,15 +1,12 @@
 import axios from 'axios'
 import { ResponseType } from 'common/types'
 
-const settings = {
+export const instance = axios.create({
+  baseURL: 'https://social-network.samuraijs.com/api/1.1/',
   withCredentials: true,
   headers: {
     'API-KEY': '5ac2a7b2-aadc-4e75-a12b-b46cdeb2e186',
   },
-}
-const instance = axios.create({
-  baseURL: 'https://social-network.samuraijs.com/api/1.1/',
-  ...settings,
 })
 
 // api
@@ -39,28 +36,6 @@ export const todolistsAPI = {
   },
   createTask(todolistId: string, title: string) {
     return instance.post<ResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks`, { title })
-  },
-}
-
-export type LoginParamsType = {
-  email: string
-  password: string
-  rememberMe: boolean
-  captcha?: string
-}
-
-export const authAPI = {
-  login(data: LoginParamsType) {
-    return instance.post<ResponseType<{ userId?: number }>>('auth/login', data)
-  },
-  me() {
-    return instance.get<ResponseType<{ id: number; email: string; login: string }>>('auth/me')
-  },
-  logout() {
-    return instance.delete<ResponseType<{ id: number; email: string; login: string }>>('auth/login')
-  },
-  captcha() {
-    return axios.get('https://social-network.samuraijs.com/api/1.0/security/get-captcha-url')
   },
 }
 

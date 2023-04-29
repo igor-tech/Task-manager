@@ -1,16 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { setInitialized } from 'app/app-reducer'
 import { createAppAsyncThunk } from 'common/utils/create-app-async-thunk'
-import { authAPI, LoginParamsType } from 'features/todolists-list/todolists-api'
+import { authAPI, LoginParamsType } from 'features/auth/auth-api'
 
-const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>(
+const login = createAppAsyncThunk<{ isLoggedIn: boolean; captchaUrl: string | null }, LoginParamsType>(
   'auth/login',
   async (data, { rejectWithValue }) => {
     const res = await authAPI.login(data)
     if (res.data.resultCode === 0) {
-      return { isLoggedIn: true }
+      return { isLoggedIn: true, captchaUrl: null }
+    } else if (res.data.resultCode === 10) {
+      const res = await authAPI.captcha()
+      return { isLoggedIn: false, captchaUrl: res.data.url }
     } else {
-      return rejectWithValue({ data: res.data, showGlobalError: true })
+      return rejectWithValue({ data: res.data, showGlobalError: false })
     }
   }
 )

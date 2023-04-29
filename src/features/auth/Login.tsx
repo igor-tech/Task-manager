@@ -8,28 +8,30 @@ import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import { useActions } from 'common/hooks'
 import { useAppSelector } from 'common/hooks/useAppSelector'
+import { LoginParamsType } from 'features/auth/auth-api'
 import { authThunks } from 'features/auth/auth-reducer'
-import { LoginParamsType } from 'features/todolists-list/todolists-api'
 import { FormikHelpers, useFormik } from 'formik'
-import React from 'react'
+import React, { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { selectIsLoggedIn } from './selectors'
 
 type FormValuesType = Required<LoginParamsType>
 
 export const Login = () => {
+  const [captchaUrl, setCaptchaUrl] = useState<string | null>(null)
+
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
   const { login } = useActions(authThunks)
   const formik = useFormik({
     validate: (values) => {
       let errors: Partial<LoginParamsType> = {}
       if (!values.email) {
-        errors.email = 'Required'
+        errors.email = 'Field is required'
       } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
         errors.email = 'Invalid email address'
       }
       if (!values.password) {
-        errors.password = 'Required'
+        errors.password = 'Field is required'
       } else if (values.password.length < 3) {
         errors.password = 'Password must be at least 3 characters long'
       }
@@ -42,13 +44,21 @@ export const Login = () => {
       captcha: '',
     },
     onSubmit: async (values: FormValuesType, formikHelpers: FormikHelpers<FormValuesType>) => {
-      const action = await login(values)
-      if (authThunks.login.rejected.match(action)) {
-        if (action.payload?.data.fieldsErrors?.length) {
-          const error = action.payload?.data.fieldsErrors[0]
-          formikHelpers.setFieldError(error?.field, error?.error)
-        }
-      }
+      await login(values)
+        .unwrap()
+        .then((res) => {
+          setCaptchaUrl(res.captchaUrl)
+        })
+        .catch((err) => {
+          if (err.data.fieldsErrors?.length) {
+            const error = err.data.fieldsErrors[0]
+            formikHelpers.setFieldError(error?.field, error?.error)
+          }
+          if (err.data.messages?.length) {
+            const error = err.data.messages[0]
+            formikHelpers.setFieldError('password', error)
+          }
+        })
     },
   })
 
@@ -82,6 +92,12 @@ export const Login = () => {
               {formik.touched.password && formik.errors.password ? (
                 <div style={{ color: 'red' }}>{formik.errors.password}</div>
               ) : null}
+              {captchaUrl !== null && (
+                <>
+                  <img src={captchaUrl} alt={'captcha img'} />
+                  <TextField type='text' label='Captcha' margin='normal' {...formik.getFieldProps('captcha')} />
+                </>
+              )}
               <FormControlLabel
                 label={'Remember me'}
                 control={<Checkbox {...formik.getFieldProps('rememberMe')} checked={formik.values.rememberMe} />}
