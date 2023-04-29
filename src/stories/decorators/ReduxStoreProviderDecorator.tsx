@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { TaskPriorities, TaskStatuses } from 'features/Todolists-list/todolists-api'
 import { appReducer } from 'app'
 import { AppRootStateType } from 'app/Store/store'
 import { authReducer } from 'features/Auth'
 import { tasksReducer, todolistsReducer } from 'features/Todolists-list'
+import { TaskPriorities, TaskStatuses } from 'features/Todolists-list/Tasks/tasks-a-p-i'
 
 import React from 'react'
 import { Provider } from 'react-redux'

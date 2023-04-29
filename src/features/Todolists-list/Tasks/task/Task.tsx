@@ -5,7 +5,7 @@ import { EditableSpan } from 'common/components/EditableSpan/EditableSpan'
 import { useActions } from 'common/hooks'
 import { useAppDispatch } from 'common/hooks/useAppDispatch'
 import { tasksActions } from 'features/Todolists-list/index'
-import { TaskStatuses, TaskType } from 'features/Todolists-list/todolists-api'
+import { TaskStatuses, TaskType } from 'features/Todolists-list/Tasks/tasks-a-p-i'
 import React, { ChangeEvent, FC, memo, useCallback } from 'react'
 
 type PropsType = {

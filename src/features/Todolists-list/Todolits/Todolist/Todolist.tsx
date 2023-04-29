@@ -8,7 +8,7 @@ import { useAppDispatch } from 'common/hooks/useAppDispatch'
 import { useAppSelector } from 'common/hooks/useAppSelector'
 import { tasksActions, todolistsActions } from 'features/Todolists-list/index'
 import { Task } from 'features/Todolists-list/Tasks/task/Task'
-import { TaskStatuses, TaskType } from 'features/Todolists-list/todolists-api'
+import { TaskStatuses, TaskType } from 'features/Todolists-list/Tasks/tasks-a-p-i'
 import { FilterValuesType, TodolistDomainType } from 'features/Todolists-list/Todolits/todolists-reducer'
 import React, { FC, memo, useCallback, useEffect } from 'react'
 

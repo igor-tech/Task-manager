@@ -1,4 +1,4 @@
-import { TaskPriorities, TaskStatuses, TaskType } from 'features/Todolists-list/todolists-api'
+import { TaskPriorities, TaskStatuses, TaskType } from 'features/Todolists-list/Tasks/tasks-a-p-i'
 import { addTask, deleteTask, fetchTasks, updateTask } from 'features/Todolists-list/Tasks/tasks-reducer'
 
 import { addTodolist, fetchTodolists, removeTodolist } from 'features/Todolists-list/Todolits/todolists-reducer'
