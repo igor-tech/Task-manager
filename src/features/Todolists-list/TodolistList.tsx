@@ -22,7 +22,7 @@ export const TodolistsList: FC = () => {
   }, [isLoggedIn])
 
   if (!isLoggedIn) {
-    return <Navigate to='/login' />
+    return <Navigate to="/login" />
   }
 
   const addTodolistCallBack = async (
@@ -48,7 +48,7 @@ export const TodolistsList: FC = () => {
         <AddItemForm addItem={addTodolistCallBack} />
       </Grid>
       <Grid container spacing={6} wrap={'nowrap'} style={{ overflowX: 'auto', height: '86vh' }}>
-        {todolists.map((tl) => {
+        {todolists.map(tl => {
           let taskForTodolist = tasks[tl.id]
           return (
             <Grid item key={tl.id}>

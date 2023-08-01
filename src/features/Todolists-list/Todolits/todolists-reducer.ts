@@ -6,19 +6,20 @@ import { AxiosError } from 'axios'
 import { handleAsyncServerAppError, handleAsyncServerNetworkError } from 'common/utils'
 import { authThunks as asyncAuthAction } from 'features/Auth/auth-reducer'
 
-export const fetchTodolists = createAsyncThunk<{ todolists: TodolistType[] }, undefined, ThunkErrorType>(
-  'todolists/fetchTodolists',
-  async (arg, thunkAPI) => {
-    thunkAPI.dispatch(setAppStatus({ status: 'loading' }))
-    try {
-      const res = await todolistsAPI.getTodolists()
-      thunkAPI.dispatch(setAppStatus({ status: 'succeeded' }))
-      return { todolists: res.data }
-    } catch (err) {
-      return handleAsyncServerNetworkError(err as AxiosError, thunkAPI)
-    }
+export const fetchTodolists = createAsyncThunk<
+  { todolists: TodolistType[] },
+  undefined,
+  ThunkErrorType
+>('todolists/fetchTodolists', async (arg, thunkAPI) => {
+  thunkAPI.dispatch(setAppStatus({ status: 'loading' }))
+  try {
+    const res = await todolistsAPI.getTodolists()
+    thunkAPI.dispatch(setAppStatus({ status: 'succeeded' }))
+    return { todolists: res.data }
+  } catch (err) {
+    return handleAsyncServerNetworkError(err as AxiosError, thunkAPI)
   }
-)
+})
 export const removeTodolist = createAsyncThunk<{ id: string }, string, ThunkErrorType>(
   'todolists/removeTodolists',
   async (todolistId, thunkAPI) => {
@@ -87,26 +88,32 @@ export const slice = createSlice({
   name: 'todolist',
   initialState: [] as TodolistDomainType[],
   reducers: {
-    changeTodolistFilter: (state, action: PayloadAction<{ id: string; filter: FilterValuesType }>) => {
-      const index = state.findIndex((tl) => tl.id === action.payload.id)
+    changeTodolistFilter: (
+      state,
+      action: PayloadAction<{ id: string; filter: FilterValuesType }>
+    ) => {
+      const index = state.findIndex(tl => tl.id === action.payload.id)
       if (index !== -1) state[index].filter = action.payload.filter
     },
-    changeTodolistEntityStatus: (state, action: PayloadAction<{ id: string; status: RequestStatusType }>) => {
-      const index = state.findIndex((tl) => tl.id === action.payload.id)
+    changeTodolistEntityStatus: (
+      state,
+      action: PayloadAction<{ id: string; status: RequestStatusType }>
+    ) => {
+      const index = state.findIndex(tl => tl.id === action.payload.id)
       if (index !== -1) state[index].entityStatus = action.payload.status
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(fetchTodolists.fulfilled, (state, action) => {
-        return action.payload.todolists.map((tl) => ({
+        return action.payload.todolists.map(tl => ({
           ...tl,
           filter: 'all',
           entityStatus: 'idle',
         }))
       })
       .addCase(removeTodolist.fulfilled, (state, action) => {
-        const index = state.findIndex((tl) => tl.id === action.payload.id)
+        const index = state.findIndex(tl => tl.id === action.payload.id)
         if (index !== -1) state.splice(index, 1)
       })
       .addCase(addTodolist.fulfilled, (state, action) => {
@@ -117,7 +124,7 @@ export const slice = createSlice({
         })
       })
       .addCase(changeTodolistTitle.fulfilled, (state, action) => {
-        const index = state.findIndex((tl) => tl.id === action.payload.id)
+        const index = state.findIndex(tl => tl.id === action.payload.id)
         if (index !== -1) state[index].title = action.payload.title
       })
 

@@ -7,7 +7,11 @@ type ThunkAPI = {
   rejectWithValue: Function
 }
 
-export const handleAsyncServerAppError = <D>(data: ResponseType<D>, thunkAPI: ThunkAPI, showError = true) => {
+export const handleAsyncServerAppError = <D>(
+  data: ResponseType<D>,
+  thunkAPI: ThunkAPI,
+  showError = true
+) => {
   const messageError = data.messages.length ? data.messages[0] : 'Some error occurred'
   if (showError) {
     thunkAPI.dispatch(setAppError({ error: messageError }))
@@ -20,7 +24,11 @@ export const handleAsyncServerAppError = <D>(data: ResponseType<D>, thunkAPI: Th
   })
 }
 
-export const handleAsyncServerNetworkError = (err: AxiosError, thunkAPI: ThunkAPI, showError = true) => {
+export const handleAsyncServerNetworkError = (
+  err: AxiosError,
+  thunkAPI: ThunkAPI,
+  showError = true
+) => {
   const error = err as AxiosError
   if (showError) {
     thunkAPI.dispatch(

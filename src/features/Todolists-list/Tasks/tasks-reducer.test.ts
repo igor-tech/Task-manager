@@ -1,7 +1,16 @@
 import { TaskPriorities, TaskStatuses, TaskType } from 'features/Todolists-list/Tasks/tasks-a-p-i'
-import { addTask, deleteTask, fetchTasks, updateTask } from 'features/Todolists-list/Tasks/tasks-reducer'
+import {
+  addTask,
+  deleteTask,
+  fetchTasks,
+  updateTask,
+} from 'features/Todolists-list/Tasks/tasks-reducer'
 
-import { addTodolist, fetchTodolists, removeTodolist } from 'features/Todolists-list/Todolits/todolists-reducer'
+import {
+  addTodolist,
+  fetchTodolists,
+  removeTodolist,
+} from 'features/Todolists-list/Todolits/todolists-reducer'
 import { tasksReducer } from 'features/Todolists-list/index'
 
 let todolistId1: string
@@ -201,11 +210,15 @@ test('status of specified task should be changed', () => {
     description: '',
     priority: 0,
   }
-  const action = updateTask.fulfilled({ model: model, taskId: '2', todolistId: todolistId2 }, 'requestId', {
-    id: '2',
-    domainModel: model,
-    todolistId: todolistId2,
-  })
+  const action = updateTask.fulfilled(
+    { model: model, taskId: '2', todolistId: todolistId2 },
+    'requestId',
+    {
+      id: '2',
+      domainModel: model,
+      todolistId: todolistId2,
+    }
+  )
 
   const endState = tasksReducer(startState, action)
 
@@ -235,12 +248,16 @@ test('title of specified task should be changed', () => {
 })
 
 test('new array should be added when new todolist is added', () => {
-  const action = addTodolist.fulfilled({ todolist: { title: '', addedDate: '', order: 0, id: 'd' } }, '', '')
+  const action = addTodolist.fulfilled(
+    { todolist: { title: '', addedDate: '', order: 0, id: 'd' } },
+    '',
+    ''
+  )
 
   const endState = tasksReducer(startState, action)
 
   const keys = Object.keys(endState)
-  const newKey = keys.find((k) => k != 'todolistId1' && k != 'todolistId2')
+  const newKey = keys.find(k => k != 'todolistId1' && k != 'todolistId2')
   if (!newKey) {
     throw Error('new key should be added')
   }

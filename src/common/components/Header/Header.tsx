@@ -14,18 +14,21 @@ export const Header = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
   const { logout } = useActions(authThunks)
 
-  const logoutHandler = useCallback(async () => logout({}), [])
+  const logoutHandler = useCallback(async () => logout({}), [logout])
 
   return (
     <>
-      <AppBar position='static'>
+      <AppBar position="static">
         <Toolbar>
-          <IconButton edge='start' color='inherit' aria-label='menu'>
+          <IconButton edge="start" color="inherit" aria-label="menu">
             <Menu />
           </IconButton>
-          <Typography variant='h6' style={{ display: 'flex', justifyContent: 'end', width: '100%' }}>
+          <Typography
+            variant="h6"
+            style={{ display: 'flex', justifyContent: 'end', width: '100%' }}
+          >
             {isLoggedIn && (
-              <Button color='inherit' onClick={logoutHandler}>
+              <Button color="inherit" onClick={logoutHandler}>
                 Log out
               </Button>
             )}

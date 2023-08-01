@@ -107,7 +107,7 @@ const initialGlobalState: AppRootStateType = {
 export const storyBookStore = configureStore({
   reducer: rootReducer,
   preloadedState: initialGlobalState,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunkMiddleware),
+  middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware),
 })
 
 export const ReduxStoreProviderDecorator = (storyFn: any) => (

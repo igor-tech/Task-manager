@@ -40,7 +40,10 @@ beforeEach(() => {
 })
 
 test('correct todolist should be removed', () => {
-  const endState = todolistsReducer(startState, removeTodolist.fulfilled({ id: todolistId1 }, '', todolistId1))
+  const endState = todolistsReducer(
+    startState,
+    removeTodolist.fulfilled({ id: todolistId1 }, '', todolistId1)
+  )
 
   expect(endState.length).toBe(1)
   expect(endState[0].id).toBe(todolistId2)
@@ -55,7 +58,10 @@ test('correct todolist should be added', () => {
     order: 0,
     addedDate: '',
   }
-  const endState = todolistsReducer(startState, addTodolist.fulfilled({ todolist: todolist }, '', newTodolistTitle))
+  const endState = todolistsReducer(
+    startState,
+    addTodolist.fulfilled({ todolist: todolist }, '', newTodolistTitle)
+  )
   expect(endState.length).toBe(3)
   expect(endState[0].title).toBe(newTodolistTitle)
   expect(endState[0].filter).toBe('all')

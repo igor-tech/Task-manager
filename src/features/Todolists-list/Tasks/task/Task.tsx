@@ -72,7 +72,10 @@ export const Task: FC<PropsType> = memo(({ task, todolistId }) => {
           justifyContent: 'space-between',
         }}
       >
-        <Checkbox checked={task.status === TaskStatuses.Completed} onChange={onChangeStatusHandler} />
+        <Checkbox
+          checked={task.status === TaskStatuses.Completed}
+          onChange={onChangeStatusHandler}
+        />
         <div
           style={{
             display: 'flex',
@@ -83,7 +86,7 @@ export const Task: FC<PropsType> = memo(({ task, todolistId }) => {
         >
           <EditableSpan title={task.title} onChange={onChangeTitleHandler} />
         </div>
-        <IconButton aria-label='delete' onClick={removeTaskHandler}>
+        <IconButton aria-label="delete" onClick={removeTaskHandler}>
           <Delete />
         </IconButton>
       </div>

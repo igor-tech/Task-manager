@@ -25,34 +25,36 @@ export const slice = createSlice({
       state.initialized = action.payload
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(authThunks.initializedApp.fulfilled, (state) => {
+      .addCase(authThunks.initializedApp.fulfilled, state => {
         state.initialized = true
         state.status = 'succeeded'
       })
-      .addCase(fetchTodolists.fulfilled, (state) => {
+      .addCase(fetchTodolists.fulfilled, state => {
         state.isLoadingTodo = true
       })
       .addMatcher(
-        (action) => action.type.endsWith('/pending'),
-        (state) => {
+        action => action.type.endsWith('/pending'),
+        state => {
           state.status = 'loading'
         }
       )
       .addMatcher(
-        (action) => action.type.endsWith('/fulfilled'),
-        (state) => {
+        action => action.type.endsWith('/fulfilled'),
+        state => {
           state.status = 'succeeded'
         }
       )
       .addMatcher(
-        (action) => action.type.endsWith('/rejected'),
+        action => action.type.endsWith('/rejected'),
         (state, action) => {
           const { payload, error } = action
           if (payload) {
             if (payload.showGlobalError) {
-              state.error = payload.data.messages.length ? payload.data.messages[0] : 'Some error occurred'
+              state.error = payload.data.messages.length
+                ? payload.data.messages[0]
+                : 'Some error occurred'
             }
           } else {
             state.error = error.message ? error.message : 'Some error occurred'

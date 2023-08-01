@@ -9,7 +9,10 @@ import { useAppSelector } from 'common/hooks/useAppSelector'
 import { tasksActions, todolistsActions } from 'features/Todolists-list/index'
 import { Task } from 'features/Todolists-list/Tasks/task/Task'
 import { TaskStatuses, TaskType } from 'features/Todolists-list/Tasks/tasks-a-p-i'
-import { FilterValuesType, TodolistDomainType } from 'features/Todolists-list/Todolits/todolists-reducer'
+import {
+  FilterValuesType,
+  TodolistDomainType,
+} from 'features/Todolists-list/Todolits/todolists-reducer'
 import React, { FC, memo, useCallback, useEffect } from 'react'
 
 import { selectIsLoggedIn } from 'features/Auth/selectors'
@@ -85,11 +88,11 @@ export const Todolist: FC<PropsType> = memo(({ tasks, ...props }) => {
   let tasksForTodolist = tasks
 
   if (props.todolist.filter === 'active') {
-    tasksForTodolist = tasksForTodolist.filter((t) => t.status === TaskStatuses.New)
+    tasksForTodolist = tasksForTodolist.filter(t => t.status === TaskStatuses.New)
   }
 
   if (props.todolist.filter === 'completed') {
-    tasksForTodolist = tasksForTodolist.filter((t) => t.status === TaskStatuses.Completed)
+    tasksForTodolist = tasksForTodolist.filter(t => t.status === TaskStatuses.Completed)
   }
 
   const onFilterButtonHandler = useCallback(
@@ -99,7 +102,11 @@ export const Todolist: FC<PropsType> = memo(({ tasks, ...props }) => {
     [props.todolist.id]
   )
 
-  const renderFilterButton = (color: PropTypes.Color, name: string, buttonFilter: FilterValuesType) => {
+  const renderFilterButton = (
+    color: PropTypes.Color,
+    name: string,
+    buttonFilter: FilterValuesType
+  ) => {
     return (
       <>
         <Button
@@ -125,7 +132,7 @@ export const Todolist: FC<PropsType> = memo(({ tasks, ...props }) => {
           <EditableSpan title={props.todolist.title} onChange={changeTodolistTitleHandler} />
         </h3>
         <IconButton
-          aria-label='delete'
+          aria-label="delete"
           onClick={removeTodolistHandler}
           disabled={props.todolist.entityStatus === 'loading'}
         >
@@ -147,7 +154,7 @@ export const Todolist: FC<PropsType> = memo(({ tasks, ...props }) => {
           Task empty...
         </div>
       )}
-      {tasksForTodolist.map((t) => (
+      {tasksForTodolist.map(t => (
         <Task key={t.id} todolistId={props.todolist.id} task={t} />
       ))}
 

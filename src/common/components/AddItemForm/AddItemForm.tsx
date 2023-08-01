@@ -58,7 +58,12 @@ export const AddItemForm = memo(({ addItem, disabled }: AddItemFormPropsType) =>
         disabled={disabled}
       />
 
-      <IconButton onClick={addTaskHandler} disabled={disabled} color={'primary'} style={{ marginTop: '5px' }}>
+      <IconButton
+        onClick={addTaskHandler}
+        disabled={disabled}
+        color={'primary'}
+        style={{ marginTop: '5px' }}
+      >
         <AddBoxIcon fontSize={'medium'} />
       </IconButton>
     </div>
