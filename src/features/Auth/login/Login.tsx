@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form'
 import { Navigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { z } from 'zod'
+import s from './Login.module.scss'
 
 const loginSchema = z.object({
   email: z.string().trim().nonempty('Enter email').email('Invalid email address'),
@@ -107,7 +108,7 @@ export const Login = () => {
                 label={'Remember me'}
                 control={<Checkbox {...register('rememberMe')} />}
               />
-              <Button type={'submit'} variant={'contained'} color={'primary'}>
+              <Button type={'submit'} variant={'contained'} color={'primary'} className={s.button}>
                 Login
               </Button>
             </FormGroup>

@@ -1,6 +1,0 @@
-# Ignore artifacts:
-build
-coverage
-test/fixtures
-**/app/public
-node_modules

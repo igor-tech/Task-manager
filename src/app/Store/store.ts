@@ -9,11 +9,5 @@ export const store = configureStore({
 
 export type AppRootStateType = ReturnType<typeof store.getState>
 
-if (process.env.NODE_ENV === 'development' && module.hot) {
-  module.hot.accept('./reducers', () => {
-    store.replaceReducer(rootReducer)
-  })
-}
-
 // @ts-ignore
 window.store = store
