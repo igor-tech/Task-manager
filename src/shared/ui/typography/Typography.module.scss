@@ -1,0 +1,79 @@
+@mixin typography-mixin($fS, $lH, $fW) {
+  font-family: var(--font-family-primary);
+  font-size: $fS;
+  font-weight: $fW;
+  line-height: $lH;
+  color: var(--color-light-100);
+  white-space: pre-line;
+}
+
+@mixin link {
+  color: var(--color-info-500);
+  text-decoration-line: underline;
+}
+
+.inherit {
+  color: inherit;
+}
+
+.h1 {
+  @include typography-mixin(var(--font-size-xl), var(--line-height-l), var(--font-weight-bold));
+}
+
+.h2 {
+  @include typography-mixin(var(--font-size-l), var(--line-height-m), var(--font-weight-bold));
+}
+
+.h3 {
+  @include typography-mixin(var(--font-size-m), var(--line-height-m), var(--font-weight-bold));
+}
+
+.large {
+  @include typography-mixin(var(--font-size-xxl), var(--line-height-l), var(--font-weight-bold));
+}
+
+.body1 {
+  @include typography-mixin(var(--font-size-m), var(--line-height-m), var(--font-weight-regular));
+}
+
+.body2 {
+  @include typography-mixin(var(--font-size-s), var(--line-height-m), var(--font-weight-regular));
+}
+
+.subtitle1 {
+  @include typography-mixin(var(--font-size-m), var(--line-height-m), var(--font-weight-bold));
+}
+
+.subtitle2 {
+  @include typography-mixin(var(--font-size-s), var(--line-height-m), var(--font-weight-bold));
+}
+
+.caption {
+  @include typography-mixin(var(--font-size-xs), var(--line-height-s), var(--font-weight-regular));
+}
+
+.overline {
+  @include typography-mixin(var(--font-size-xs), var(--line-height-s), var(--font-weight-bold));
+}
+
+.link1 {
+  @include typography-mixin(var(--font-size-s), var(--line-height-m), var(--font-weight-regular));
+  @include link;
+}
+
+.link2 {
+  @include typography-mixin(var(--font-size-xs), var(--line-height-s), var(--font-weight-regular));
+  @include link;
+}
+
+.primary {
+  color: var(--color-accent-500);
+}
+
+.secondary {
+  color: var(--color-dark-100);
+}
+
+.error {
+  color: var(--color-danger-300);
+}
