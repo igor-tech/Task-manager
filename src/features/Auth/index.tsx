@@ -1,4 +1,4 @@
-import { Login } from 'features/Auth/login/Login'
+import { Login } from './login/Login'
 import * as authSelectors from './selectors'
 
 export { authReducer, authThunks } from './auth-reducer'

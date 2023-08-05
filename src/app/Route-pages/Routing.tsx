@@ -1,8 +1,8 @@
 import { Container } from '@material-ui/core'
-import { Login } from 'features/Auth'
-import { TodolistsList } from 'features/Todolists-list'
-import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
+
+import { Login } from '@/features/Auth'
+import { TodolistsList } from '@/features/Todolists-list'
 
 export const Routing = () => {
   return (

@@ -1,12 +1,13 @@
-import { Routing } from 'app/Route-pages/Routing'
-import { ErrorSnackbar, Header } from 'common/components'
-import { CircularLoader } from 'common/components/Loader/CircularLoader'
-import { useActions } from 'common/hooks'
-import { useAppSelector } from 'common/hooks/useAppSelector'
-import { selectIsInitialized } from 'common/selectors'
-import { authThunks } from 'features/Auth/auth-reducer'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
+
 import { ToastContainer } from 'react-toastify'
+
+import { Routing } from '@/app/Route-pages/Routing'
+import { CircularLoader, ErrorSnackbar, Header } from '@/common/components'
+import { useActions, useAppSelector } from '@/common/hooks'
+import { selectIsInitialized } from '@/common/selectors'
+import { authThunks } from '@/features/Auth'
+
 import 'react-toastify/dist/ReactToastify.css'
 
 function App() {

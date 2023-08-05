@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { authThunks } from 'features/Auth/auth-reducer'
-import { fetchTodolists } from 'features/Todolists-list/Todolits/todolists-reducer'
+
+import { authThunks } from '@/features/Auth'
+import { fetchTodolists } from '@/features/Todolists-list/Todolits/todolists-reducer'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 const initialState = {
@@ -9,6 +10,7 @@ const initialState = {
   initialized: false,
   isLoadingTodo: false,
 }
+
 export type InitialStateType = typeof initialState
 
 export const slice = createSlice({
@@ -50,6 +52,7 @@ export const slice = createSlice({
         action => action.type.endsWith('/rejected'),
         (state, action) => {
           const { payload, error } = action
+
           if (payload) {
             if (payload.showGlobalError) {
               state.error = payload.data.messages.length

@@ -1,5 +1,6 @@
-import { ResponseType } from 'common/types'
 import { instance } from '../Todolists-list/todolists-api'
+
+import { ResponseType } from '@/common/types'
 export type LoginParamsType = {
   email: string
   password: string

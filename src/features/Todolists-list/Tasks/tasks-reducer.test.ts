@@ -1,17 +1,16 @@
-import { TaskPriorities, TaskStatuses, TaskType } from 'features/Todolists-list/Tasks/tasks-a-p-i'
+import { tasksReducer } from '@/features/Todolists-list'
+import { TaskPriorities, TaskStatuses, TaskType } from '@/features/Todolists-list/Tasks/tasks-a-p-i'
 import {
   addTask,
   deleteTask,
   fetchTasks,
   updateTask,
-} from 'features/Todolists-list/Tasks/tasks-reducer'
-
+} from '@/features/Todolists-list/Tasks/tasks-reducer'
 import {
   addTodolist,
   fetchTodolists,
   removeTodolist,
-} from 'features/Todolists-list/Todolits/todolists-reducer'
-import { tasksReducer } from 'features/Todolists-list/index'
+} from '@/features/Todolists-list/Todolits/todolists-reducer'
 
 let todolistId1: string
 let todolistId2: string
@@ -258,6 +257,7 @@ test('new array should be added when new todolist is added', () => {
 
   const keys = Object.keys(endState)
   const newKey = keys.find(k => k != 'todolistId1' && k != 'todolistId2')
+
   if (!newKey) {
     throw Error('new key should be added')
   }

@@ -1,21 +1,19 @@
+import { FC, memo, useCallback, useEffect } from 'react'
+
 import { Button, IconButton } from '@material-ui/core'
 import { Delete } from '@material-ui/icons'
 import { Paper, PropTypes } from '@mui/material'
-import { AddItemForm } from 'common/components/AddItemForm/AddItemForm'
-import { EditableSpan } from 'common/components/EditableSpan/EditableSpan'
-import { useActions } from 'common/hooks'
-import { useAppDispatch } from 'common/hooks/useAppDispatch'
-import { useAppSelector } from 'common/hooks/useAppSelector'
-import { tasksActions, todolistsActions } from 'features/Todolists-list/index'
-import { Task } from 'features/Todolists-list/Tasks/task/Task'
-import { TaskStatuses, TaskType } from 'features/Todolists-list/Tasks/tasks-a-p-i'
+
+import { AddItemForm, EditableSpan } from '@/common/components'
+import { useActions, useAppDispatch, useAppSelector } from '@/common/hooks'
+import { selectIsLoggedIn } from '@/features/Auth/selectors'
+import { tasksActions, todolistsActions } from '@/features/Todolists-list'
+import { Task } from '@/features/Todolists-list/Tasks/task/Task'
+import { TaskStatuses, TaskType } from '@/features/Todolists-list/Tasks/tasks-a-p-i'
 import {
   FilterValuesType,
   TodolistDomainType,
-} from 'features/Todolists-list/Todolits/todolists-reducer'
-import React, { FC, memo, useCallback, useEffect } from 'react'
-
-import { selectIsLoggedIn } from 'features/Auth/selectors'
+} from '@/features/Todolists-list/Todolits/todolists-reducer'
 
 type PropsType = {
   todolist: TodolistDomainType
@@ -45,9 +43,11 @@ export const Todolist: FC<PropsType> = memo(({ tasks, ...props }) => {
       }
     ) => {
       const action = await dispatch(tasksActions.addTask({ title, todolistId: props.todolist.id }))
+
       if (tasksActions.addTask.rejected.match(action)) {
         if (action.payload?.errors?.length) {
           const errorMessage = action.payload?.errors[0]
+
           helpers.setError(errorMessage)
         }
       } else {
@@ -72,9 +72,11 @@ export const Todolist: FC<PropsType> = memo(({ tasks, ...props }) => {
           id: props.todolist.id,
         })
       )
+
       if (todolistsActions.changeTodolistTitle.rejected.match(action)) {
         if (action.payload?.errors?.length) {
           const errorMessage = action.payload?.errors[0]
+
           helpers.setEditMode(true)
           helpers.setError(errorMessage)
         }
@@ -119,6 +121,7 @@ export const Todolist: FC<PropsType> = memo(({ tasks, ...props }) => {
       </>
     )
   }
+
   return (
     <Paper style={{ padding: '10px', position: 'relative' }}>
       <div

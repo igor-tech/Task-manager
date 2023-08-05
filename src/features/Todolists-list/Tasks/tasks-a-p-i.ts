@@ -1,5 +1,5 @@
-import { ResponseType } from 'common/types'
-import { instance } from 'features/Todolists-list/todolists-api'
+import { ResponseType } from '@/common/types'
+import { instance } from '@/features/Todolists-list/todolists-api'
 
 export const tasksAPI = {
   getTasks(todolistId: string) {

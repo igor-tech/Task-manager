@@ -1,12 +1,13 @@
+import { ChangeEvent, FC, memo, useCallback } from 'react'
+
 import Checkbox from '@material-ui/core/Checkbox'
 import { Delete } from '@material-ui/icons'
 import { IconButton } from '@mui/material'
-import { EditableSpan } from 'common/components/EditableSpan/EditableSpan'
-import { useActions } from 'common/hooks'
-import { useAppDispatch } from 'common/hooks/useAppDispatch'
-import { tasksActions } from 'features/Todolists-list/index'
-import { TaskStatuses, TaskType } from 'features/Todolists-list/Tasks/tasks-a-p-i'
-import React, { ChangeEvent, FC, memo, useCallback } from 'react'
+
+import { EditableSpan } from '@/common/components'
+import { useActions, useAppDispatch } from '@/common/hooks'
+import { tasksActions } from '@/features/Todolists-list'
+import { TaskStatuses, TaskType } from '@/features/Todolists-list/Tasks/tasks-a-p-i'
 
 type PropsType = {
   task: TaskType
@@ -23,6 +24,7 @@ export const Task: FC<PropsType> = memo(({ task, todolistId }) => {
   const onChangeStatusHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       let newIsDoneValue = e.currentTarget.checked
+
       updateTask({
         id: task.id,
         todolistId: todolistId,
@@ -50,9 +52,11 @@ export const Task: FC<PropsType> = memo(({ task, todolistId }) => {
           todolistId: todolistId,
         })
       )
+
       if (tasksActions.updateTask.rejected.match(action)) {
         if (action.payload?.errors?.length) {
           const errorMessage = action.payload?.errors[0]
+
           helpers.setEditMode(true)
           helpers.setError(errorMessage)
         }

@@ -1,13 +1,14 @@
+import { useCallback } from 'react'
+
 import { AppBar, Box, LinearProgress, Typography } from '@material-ui/core'
 import { Menu } from '@material-ui/icons'
 import { IconButton, Toolbar } from '@mui/material'
 import Button from '@mui/material/Button'
-import { useActions } from 'common/hooks'
-import { useAppSelector } from 'common/hooks/useAppSelector'
-import { selectStatus } from 'common/selectors'
-import { authThunks } from 'features/Auth/auth-reducer'
-import { selectIsLoggedIn } from 'features/Auth/selectors'
-import React, { useCallback } from 'react'
+
+import { useActions, useAppSelector } from '@/common/hooks'
+import { selectStatus } from '@/common/selectors'
+import { authThunks } from '@/features/Auth'
+import { selectIsLoggedIn } from '@/features/Auth/selectors'
 
 export const Header = () => {
   const status = useAppSelector(selectStatus)

@@ -1,10 +1,10 @@
-import { Snackbar, Stack } from '@mui/material'
-
-import MuiAlert, { AlertProps } from '@mui/material/Alert'
-import { setAppError, setAppStatus } from 'app/app-reducer'
-import { useAppDispatch } from 'common/hooks/useAppDispatch'
-import { useAppSelector } from 'common/hooks/useAppSelector'
 import * as React from 'react'
+
+import { Snackbar, Stack } from '@mui/material'
+import MuiAlert, { AlertProps } from '@mui/material/Alert'
+
+import { setAppError, setAppStatus } from '@/app/app-reducer'
+import { useAppDispatch, useAppSelector } from '@/common/hooks'
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
@@ -22,6 +22,7 @@ export function ErrorSnackbar() {
   }
 
   const isOpen = error !== null
+
   return (
     <Stack spacing={2} sx={{ width: '100%' }}>
       <Snackbar open={isOpen} autoHideDuration={3000} onClose={handleClose}>

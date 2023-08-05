@@ -1,5 +1,7 @@
-import { RequestStatusType } from 'app/app-reducer'
 import { v1 } from 'uuid'
+
+import { RequestStatusType } from '@/app/app-reducer'
+import { todolistsReducer } from '@/features/Todolists-list'
 import {
   addTodolist,
   changeTodolistEntityStatus,
@@ -9,8 +11,7 @@ import {
   FilterValuesType,
   removeTodolist,
   TodolistDomainType,
-} from 'features/Todolists-list/Todolits/todolists-reducer'
-import { todolistsReducer } from 'features/Todolists-list/index'
+} from '@/features/Todolists-list/Todolits/todolists-reducer'
 
 let todolistId1: string
 let todolistId2: string
@@ -62,6 +63,7 @@ test('correct todolist should be added', () => {
     startState,
     addTodolist.fulfilled({ todolist: todolist }, '', newTodolistTitle)
   )
+
   expect(endState.length).toBe(3)
   expect(endState[0].title).toBe(newTodolistTitle)
   expect(endState[0].filter).toBe('all')

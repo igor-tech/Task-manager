@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@material-ui/core'
 import Checkbox from '@mui/material/Checkbox'
@@ -7,16 +9,15 @@ import FormGroup from '@mui/material/FormGroup'
 import FormLabel from '@mui/material/FormLabel'
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
-import { useActions } from 'common/hooks'
-import { useAppSelector } from 'common/hooks/useAppSelector'
-import { authThunks } from 'features/Auth/auth-reducer'
-import { selectIsLoggedIn } from 'features/Auth/selectors'
-import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Navigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
 import { z } from 'zod'
+
 import s from './Login.module.scss'
+
+import { useActions, useAppSelector } from '@/common/hooks'
+import { authThunks } from '@/features/Auth'
+import { selectIsLoggedIn } from '@/features/Auth/selectors'
 
 const loginSchema = z.object({
   email: z.string().trim().nonempty('Enter email').email('Invalid email address'),
@@ -44,24 +45,23 @@ export const Login = () => {
     resolver: zodResolver(loginSchema),
   })
   const onSubmit = async (data: FormValues) => {
-    await login(data)
-      .unwrap()
-      .then(res => {
-        console.log(res, 'then')
-        setCaptchaUrl(res.captchaUrl)
-      })
-      .catch(err => {
-        if (err.data.messages?.length) {
-          const error = err.data.messages[0]
-          toast.error(error)
-        }
-      })
+    await login(data).unwrap()
+    // .then(res => {
+    //   console.log(res, 'then')
+    //   setCaptchaUrl(res.captchaUrl)
+    // })
+    // .catch(err => {
+    //   if (err.data.messages?.length) {
+    //     const error = err.data.messages[0]
+    //     toast.error(error)
+    //   }
+    // })
   }
 
   if (isLoggedIn) {
     return <Navigate to={'/profile'} />
   }
-  console.log(errors)
+
   return (
     <Grid container justifyContent={'center'}>
       <Grid item justifyContent={'center'}>
@@ -70,7 +70,11 @@ export const Login = () => {
             <FormLabel>
               <p>
                 To log in get registered
-                <a href={'https://social-network.samuraijs.com/'} target={'_blank'}>
+                <a
+                  href={'https://social-network.samuraijs.com/'}
+                  target={'_blank'}
+                  rel="noreferrer"
+                >
                   {' '}
                   here
                 </a>

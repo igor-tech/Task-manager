@@ -1,6 +1,8 @@
-import React, { ChangeEvent, memo, useState } from 'react'
+import { ChangeEvent, memo, useState } from 'react'
+
 import { TextField } from '@material-ui/core'
-import s from 'common/components/EditableSpan/EditableSpan.module.css'
+
+import s from './EditableSpan.module.css'
 
 export type EditableSpanType = {
   title: string
