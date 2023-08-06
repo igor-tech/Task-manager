@@ -7,6 +7,7 @@ import viteTsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: 'https://igor-tech.github.io/Task-manager',
   plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
   resolve: {
     alias: [{ find: '@', replacement: path.resolve(__dirname, './src') }],
