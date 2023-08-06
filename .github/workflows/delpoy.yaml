@@ -36,7 +36,7 @@ jobs:
           node-version: 18
       - name: Install PNPM
         run: npm i -g pnpm
-      - name: Install & Build
+      - name: Install dependencies
         run: pnpm i  &&  pnpm build
       - name: Build
         run: pnpm run build
