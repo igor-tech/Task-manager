@@ -1,0 +1,59 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+
+  .auth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    p {
+      margin-bottom: 30px;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+
+      width: 500px;
+      padding: 36px;
+
+      background-color: var(--color-light-100);
+      border-radius: 50px;
+    }
+  }
+
+  .message {
+    display: flex;
+    flex-direction: column;
+
+    width: 500px;
+    margin-top: 50px;
+    padding: 36px;
+
+    background-color: var(--color-light-100);
+    border-radius: 50px;
+
+    div {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+
+      p span {
+        display: flex;
+        gap: 10px;
+      }
+
+      svg {
+        cursor: pointer;
+        transition: var(--transtition-duration-basic);
+
+        &:hover {
+          color: var(--color-info-300);
+        }
+      }
+    }
+  }
+}
