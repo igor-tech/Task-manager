@@ -7,7 +7,7 @@ import {
   handleAsyncServerAppError,
   handleAsyncServerNetworkError,
 } from '@/common/utils/error-utils'
-import { authThunks as asyncAuthAction } from '@/features/Auth/auth-reducer'
+import { authThunks as asyncAuthAction } from '@/features/Auth/login/service/auth-reducer'
 import { todolistsAPI, TodolistType } from '@/features/Todolists-list/todolists-api'
 
 export const fetchTodolists = createAsyncThunk<

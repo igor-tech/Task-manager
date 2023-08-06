@@ -8,7 +8,7 @@ import Button from '@mui/material/Button'
 import { useActions, useAppSelector } from '@/common/hooks'
 import { selectStatus } from '@/common/selectors'
 import { authThunks } from '@/features/Auth'
-import { selectIsLoggedIn } from '@/features/Auth/selectors'
+import { selectIsLoggedIn } from '@/features/Auth/login/service/selectors'
 
 export const Header = () => {
   const status = useAppSelector(selectStatus)

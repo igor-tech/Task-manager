@@ -1,6 +1,6 @@
-import { instance } from '../Todolists-list/todolists-api'
-
 import { ResponseType } from '@/common/types'
+import { instance } from '@/features/Todolists-list/todolists-api'
+
 export type LoginParamsType = {
   email: string
   password: string

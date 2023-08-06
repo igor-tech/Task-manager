@@ -6,7 +6,7 @@ import { Paper, PropTypes } from '@mui/material'
 
 import { AddItemForm, EditableSpan } from '@/common/components'
 import { useActions, useAppDispatch, useAppSelector } from '@/common/hooks'
-import { selectIsLoggedIn } from '@/features/Auth/selectors'
+import { selectIsLoggedIn } from '@/features/Auth/login/service/selectors'
 import { tasksActions, todolistsActions } from '@/features/Todolists-list'
 import { Task } from '@/features/Todolists-list/Tasks/task/Task'
 import { TaskStatuses, TaskType } from '@/features/Todolists-list/Tasks/tasks-a-p-i'

@@ -3,8 +3,6 @@ import { FC, useEffect } from 'react'
 import { Grid } from '@material-ui/core'
 import { Navigate } from 'react-router-dom'
 
-import { selectIsLoggedIn } from '../Auth/selectors'
-
 import { Todolist } from './Todolits/Todolist/Todolist'
 
 import { todolistsActions } from './index'
@@ -12,6 +10,7 @@ import { todolistsActions } from './index'
 import { AddItemForm } from '@/common/components'
 import { useActions, useAppDispatch, useAppSelector } from '@/common/hooks'
 import { selectTasks, selectTodolists } from '@/common/selectors'
+import { selectIsLoggedIn } from '@/features/Auth/login/service'
 
 export const TodolistsList: FC = () => {
   const todolists = useAppSelector(selectTodolists)
