@@ -42,20 +42,20 @@
 .primary {
   @include button-mixin;
 
-  background: var(--color-accent);
-  box-shadow: 0 4px 18px 0 rgb(140 97 255 / 35%);
+  background: var(--color-info-500);
+  box-shadow: 0 4px 18px 0 rgb(75 136 245);
 
   &:hover {
-    background: var(--color-accent-300);
+    background: var(--color-info-300);
   }
 
   &:active {
-    background: var(--color-accent-700);
+    background: var(--color-info-700);
   }
 
   &:disabled {
     color: var(--color-light-900);
-    background: var(--color-accent-900);
+    background: var(--color-info-900);
   }
 }
 
@@ -63,8 +63,7 @@
   @include button-mixin;
 
   background: var(--color-dark-300);
-
-  //box-shadow: 0 2px 10px 0 rgb(109 109 109 / 25%);
+  box-shadow: 0 2px 10px 0 rgb(109 109 109 / 25%);
 
   &:hover {
     background: var(--color-dark-100);
@@ -84,43 +83,43 @@
 .tertiary {
   @include button-mixin;
 
-  color: var(--color-accent-500);
+  color: var(--color-info-500);
   background: transparent;
-  border: 1px solid var(--color-accent-500);
+  border: 1px solid var(--color-info-500);
 
   &:hover {
     background: var(--color-dark-300);
-    border: 1px solid var(--color-accent-700);
+    border: 1px solid var(--color-info-700);
   }
 
   &:active {
-    background: var(--color-accent-900);
-    border: 1px solid var(--color-accent-700);
+    background: var(--color-info-900);
+    border: 1px solid var(--color-info-700);
   }
 
   &:disabled {
-    color: var(--color-accent-900);
-    border: 1px solid var(--color-accent-900);
+    color: var(--color-info-900);
+    border: 1px solid var(--color-info-900);
   }
 }
 
 .link {
   @include button-mixin;
 
-  color: var(--color-accent-500);
+  color: var(--color-info-500);
   background: none;
   border: none;
   border-radius: 130px;
 
   &:hover {
-    color: var(--color-accent-300);
+    color: var(--color-info-300);
   }
 
   &:active {
-    color: var(--color-accent-700);
+    color: var(--color-info-700);
   }
 
   &:disabled {
-    color: var(--color-accent-900);
+    color: var(--color-info-900);
   }
 }

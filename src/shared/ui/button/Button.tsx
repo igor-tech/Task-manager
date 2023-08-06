@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, ElementType } from 'react'
 
 import { clsx } from 'clsx'
 
-import s from 'shared/ui/button/Button.module.scss'
+import s from './Button.module.scss'
 
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
