@@ -1,4 +1,4 @@
-@import '../typography/typography.module';
+@import '../typography/Typography.module';
 
 @mixin button-mixin() {
   @include typography-mixin(var(--font-size-s), var(--line-height-m), var(--font-weight-bold));
